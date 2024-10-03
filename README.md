@@ -13,7 +13,7 @@ A collection of handy helpers for AI art generation, AI writing and other experi
 <a href="https://github.com/Skquark/AEIONic/blob/main/AEIONic_Diffusion_Deluxe.ipynb"><img src="https://badgen.net/badge/icon/github?icon=github&label" alt="Github"></a> <a href="https://github.com/Skquark/AEIONic"><img src="https://badgen.net/github/release/Skquark/AEIONic/stable" alt="Release version"></a>
 <a href="https://colab.research.google.com/github/Skquark/AEIONic/blob/main/AEIONic_Diffusion_Deluxe.ipynb"><img src="https://img.shields.io/badge/Open-in%20Colab-brightgreen?logo=google-colab&style=flat-square" alt="Open in Google Colab"/></a>
 </p>
-
+(Previously known as [Stable Diffusion Deluxe](https://github.com/Skquark/AI-Friends))
 *   Runs in a pretty WebUI using [Flet - Flutter for Python](https://flet.dev) with themes, interactivity & sound
 *   Saves all settings/parameters in your config file, don't need to Copy to Drive
 *   Run a batch list of prompts at once, so queue many and walk away
