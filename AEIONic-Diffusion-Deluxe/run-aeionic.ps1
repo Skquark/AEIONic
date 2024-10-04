@@ -1,7 +1,17 @@
-powershell Start-Process powershell -Verb runAs
-if not EXIST .\venv (python -m venv .\venv)
-# Invoke-WebRequest https://raw.githubusercontent.com/Skquark/AEIONic/main/AEIONic-Diffusion-Deluxe/AEIONic-Diffusion-Deluxe.py -OutFile .\venv\AEIONic-Diffusion-Deluxe.py
-if (Test-Connection -ComputerName google.com -Count 1 -Quiet) { Invoke-WebRequest https://raw.githubusercontent.com/Skquark/AEIONic/main/AEIONic-Diffusion-Deluxe/AEIONic-Diffusion-Deluxe.py -OutFile .\venv\AEIONic-Diffusion-Deluxe.py } else { if (Test-Path '.\venv\AEIONic-Diffusion-Deluxe.py') { Write-Host 'No internet connection. Using existing script version.' } else { Write-Host 'No internet connection on first run. Unable to proceed.' ; exit 1 } }
+Start-Process powershell -Verb runAs
+if ( !(Test-Path .\venv) ) {
+  python -m venv .\venv
+}
+if (Test-Connection -ComputerName google.com -Count 1 -Quiet) {
+  Invoke-WebRequest https://raw.githubusercontent.com/Skquark/AEIONic/main/AEIONic-Diffusion-Deluxe/AEIONic-Diffusion-Deluxe.py -OutFile .\venv\AEIONic-Diffusion-Deluxe.py
+} else {
+  if (Test-Path '.\venv\AEIONic-Diffusion-Deluxe.py') {
+    Write-Host 'No internet connection. Using existing script version.'
+  } else {
+    Write-Host 'No internet connection on first run. Unable to proceed.'
+    exit 1
+  }
+}
 cd .\venv\Scripts
 .\Activate.ps1
 cd ..

@@ -58,6 +58,9 @@ Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFile
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon; IconFilename:"{app}\favicon.ico"
 ; AfterInstall: SetElevationBit('{autodesktop}\{#MyAppName}.lnk')
 
+[Messages]
+SelectDirLabel3=AEIONic will be installed in the following folder. Suggested to install to a \Apps directory or someplace that doesn't require Admin access.
+
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: runascurrentuser shellexec postinstall skipifsilent
 
