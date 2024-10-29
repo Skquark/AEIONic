@@ -503,6 +503,7 @@ SDXL_LoRA_models = [
 ]
 SD3_models = [
     {"name": "Stable Diffusion 3 Medium", "path": "stabilityai/stable-diffusion-3-medium-diffusers"},
+    {"name": "Stable Diffusion 3.5 Medium", "path": "adamo1139/stable-diffusion-3.5-medium-ungated"},
     {"name": "Stable Diffusion 3.5 Large", "path": "adamo1139/stable-diffusion-3.5-large-ungated"},
     {"name": "Stable Diffusion 3.5 Large Turbo", "path": "adamo1139/stable-diffusion-3.5-large-turbo-ungated"},
     {"name": "SD3-Reality-Mix", "path": "ptx0/sd3-reality-mix"},
