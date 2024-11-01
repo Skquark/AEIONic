@@ -1,7 +1,7 @@
 # AEIONic
 A collection of handy helpers for AI art generation, AI writing and other experimental tools
 ---
-# 🎨 **AEIONic Diffusion Deluxe+** 👨‍🎨️ - Python to Flutter Framework
+# 🎨 **AEIONic Diffusion Deluxe** 👨‍🎨️ - Python to Flutter Framework
 
 *...using `🧨diffusers`* and practical bonus features...
 
@@ -19,7 +19,7 @@ A collection of handy helpers for AI art generation, AI writing and other experi
 *   Run a batch list of prompts at once, so queue many and walk away
 *   Option to override any parameter per prompt in queue
 *   Option to use Stability-API tokens for more samplers, bigger size & CPU runtime
-*   Use Stable Diffusion 3, [XL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-0.9), [2.1](https://huggingface.co/stabilityai/stable-diffusion-2-1), [2.0](https://huggingface.co/stabilityai/stable-diffusion-2), [1.5 ](https://huggingface.co/runwayml/stable-diffusion-v1-5), or [1.4](https://huggingface.co/CompVis/stable-diffusion-v1-4) Checkpoint Model File
+*   Use Stable Diffusion 3, 3.5, [XL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-0.9), [2.1](https://huggingface.co/stabilityai/stable-diffusion-2-1), [2.0](https://huggingface.co/stabilityai/stable-diffusion-2), [1.5 ](https://huggingface.co/runwayml/stable-diffusion-v1-5), or [1.4](https://huggingface.co/CompVis/stable-diffusion-v1-4) Checkpoint Model File
 *   Supports Stable Diffusion image2image to use an init_image
 *   Supports Stable Diffusion [Inpaint](https://huggingface.co/runwayml/stable-diffusion-inpainting) mask_image layer
 *   Supports Negative Prompts to specify what you don't want

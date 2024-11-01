@@ -517,6 +517,19 @@ SD3_LoRA_models = [
     {"name": "Green-BG", "path": "sergon19/green_bg_LoRa10-SDX3-plus", "weights": "pytorch_lora_weights.safetensors", "prefix": "sgc style"},
     {"name": "sd3-lora-test", "path": "ptx0/sd3-lora-test", "weights": "pytorch_lora_weights.safetensors", "prefix": ""},
 ]
+Flux_models = [
+    {"name": "FLUX.1-dev", "path": "black-forest-labs/FLUX.1-dev"},
+    {"name": "FLUX.1-schnell", "path": "black-forest-labs/FLUX.1-schnell"},
+    {"name": "FLUX.1-merged", "path": "sayakpaul/FLUX.1-merged"},
+    {"name": "FLUX.1-lite-8B", "path": "Freepik/flux.1-lite-8B-alpha"},
+    {"name": "FastFlux-Unchained-fp8", "path": "John6666/fastflux-unchained-t5f16-fp8-flux"},
+    {"name": "FluxBooru v0.3", "path": "terminusresearch/FluxBooru-v0.3"},
+    {"name": "AWPortrait-FL", "path": "Shakker-Labs/AWPortrait-FL"},
+    {"name": "Mystic", "path": "enhanceaiteam/Mystic"},
+    {"name": "OpenFLUX.1-schnell", "path": "ostris/OpenFLUX.1"},
+    {"name": "Raemu Flux", "path": "Raelina/Raemu-Flux"},
+    {"name": "NSFW-Flux v1", "path": "UnfilteredAI/NSFW-Flux-v1"},
+]
 Flux_LoRA_models = [
     {'name': 'ASCII Art', 'path': 'wavymulder/ASCII-flux-LoRA', 'weight_name': 'ASCIIart_fluxlora_wavymulder.safetensors', 'prefix': 'ASCII art'},
     {'name': 'Add Details', 'path': 'Shakker-Labs/FLUX.1-dev-LoRA-add-details', 'weight_name': 'FLUX-dev-lora-add_details.safetensors', 'prefix': ''},
