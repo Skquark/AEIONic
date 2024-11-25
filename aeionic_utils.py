@@ -600,6 +600,8 @@ Flux_LoRA_models = [
     {'name': 'Tarot v1', 'path': 'multimodalart/flux-tarot-v1', 'weight_name': 'flux_tarot_v1_lora.safetensors', 'prefix': 'in the style of TOK a trtcrd, tarot style'},
     {'name': 'The Point', 'path': 'alvdansen/the-point-flux', 'weight_name': 'thepoint_flux_araminta_k.safetensors', 'prefix': 'pnt style'},
     {'name': 'The Sims', 'path': 'dvyio/flux-lora-the-sims', 'weight_name': '011ed14848b3408c8d70d3ecfa14f122_lora.safetensors', 'prefix': 'video game screenshot in the style of THSMS'},
+    {'name': 'FLUX Tools Canny Control', 'path': 'black-forest-labs/FLUX.1-Canny-dev-lora', 'weight_name': 'flux1-canny-dev-lora.safetensors', 'prefix': ''},
+    {'name': 'FLUX Tools Depth Control', 'path': 'black-forest-labs/FLUX.1-Depth-dev-lora', 'weight_name': 'flux1-depth-dev-lora.safetensors', 'prefix': ''},
     {'name': 'Victorian Satire', 'path': 'dvyio/flux-lora-victorian-satire', 'weight_name': 'lora.safetensors', 'prefix': 'in the style of a Victorian-era TOK cartoon illustration'},
     {'name': 'Wrong', 'path': 'fofr/flux-wrong', 'weight_name': 'lora.safetensors', 'prefix': 'WRNG'},
     {'name': 'XLabs Anime', 'path': 'XLabs-AI/flux-lora-collection', 'weight_name': 'anime_lora.safetensors', 'prefix': ''},
