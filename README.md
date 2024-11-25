@@ -1,43 +1,40 @@
-# AEIONic
-A collection of handy helpers for AI art generation, AI writing and other experimental tools
+# ***AEIONic***
+A collection of handy helpers for creative Multi-Media AI generations with many open-source tools All-In-One
 ---
-# 🎨 **AEIONic Diffusion Deluxe** 👨‍🎨️ - Python to Flutter Framework
+# 🎨 **AEIONic - Diffusion Deluxe** 👨‍🎨️ - Python to Flutter Framework
 
-*...using `🧨diffusers`* and practical bonus features...
-
-
+*...using `🧨diffusers`* and practical bonus features... (Previously known as [Stable Diffusion Deluxe](https://github.com/Skquark/AI-Friends))
 
 ---
 ### Designed by [**Skquark**, Inc.](https://www.Skquark.com) 😋 - Project at [AEIONic.com](https://AEIONic.com)
 <p align=center>
-<a href="https://github.com/Skquark/AEIONic/blob/main/AEIONic_Diffusion_Deluxe.ipynb"><img src="https://badgen.net/badge/icon/github?icon=github&label" alt="Github"></a> <a href="https://github.com/Skquark/AEIONic"><img src="https://badgen.net/github/release/Skquark/AEIONic/stable" alt="Release version"></a>
+<a href="https://github.com/Skquark/AEIONic"><img src="https://badgen.net/badge/icon/github?icon=github&label" alt="Github"></a> <a href="https://github.com/Skquark/AEIONic/raw/main/AEIONic-Diffusion-Deluxe/AEIONic-setup.exe"><img src="https://badgen.net/github/release/Skquark/AEIONic/stable" alt="Windows Release"></a>
 <a href="https://colab.research.google.com/github/Skquark/AEIONic/blob/main/AEIONic_Diffusion_Deluxe.ipynb"><img src="https://img.shields.io/badge/Open-in%20Colab-brightgreen?logo=google-colab&style=flat-square" alt="Open in Google Colab"/></a>
 </p>
-(Previously known as [Stable Diffusion Deluxe](https://github.com/Skquark/AI-Friends))
+
+
 *   Runs in a pretty WebUI using [Flet - Flutter for Python](https://flet.dev) with themes, interactivity & sound
 *   Saves all settings/parameters in your config file, don't need to Copy to Drive
 *   Run a batch list of prompts at once, so queue many and walk away
 *   Option to override any parameter per prompt in queue
 *   Option to use Stability-API tokens for more samplers, bigger size & CPU runtime
 *   Use Stable Diffusion 3, 3.5, [XL](https://huggingface.co/stabilityai/stable-diffusion-xl-base-0.9), [2.1](https://huggingface.co/stabilityai/stable-diffusion-2-1), [2.0](https://huggingface.co/stabilityai/stable-diffusion-2), [1.5 ](https://huggingface.co/runwayml/stable-diffusion-v1-5), or [1.4](https://huggingface.co/CompVis/stable-diffusion-v1-4) Checkpoint Model File
-*   Supports Stable Diffusion image2image to use an init_image
-*   Supports Stable Diffusion [Inpaint](https://huggingface.co/runwayml/stable-diffusion-inpainting) mask_image layer
-*   Supports Negative Prompts to specify what you don't want
+*   Supports Stable Diffusion Image2Image, [Inpainting](https://huggingface.co/runwayml/stable-diffusion-inpainting), IP-Adapters, and many variations
+*   Supports Negative Prompts to specify what you don't want, plus includes Negatives Generator
 *   Supports Long Prompt Weighting to emphasize (positive) & [negative] word strengths
-*   Prompt tweening to combine latent space of 2 prompts in a series
-*   Can use Interpolation to walk steps between latent space of prompt list
+*   Use FLUX.1 in all its forms, with many fine-tuned models, LoRA layers, ControlNets, Video Animation, etc.
 *   Can use CLIP Guidance with LAION & OpenAI ViT models
 *   Can use Textual Inversion Conceptualizer with 760+ Community Concepts
 *   Can Centipede prompts as init images feeding down the list
-*   Can save all images to your Google Drive (PyDrive support soon)
-*   Can Upscale automatically with Real-ESRGAN enlarging
-*   Embeds exif metadata directly into png files
+*   Can save all images to your Google Drive on Colab
+*   Can Upscale automatically with Real-ESRGAN, AuraSR, SRFormer and other enlarging modes
+*   Embeds full exif metadata directly into png files
 *   Disabled NSFW filtering and added custom sampler options
 *   Renames image filenames to the prompt text, with options
 *   OpenAI Prompt Generator, Remixer, Brainstormer & Noodle Soup Prompt Writer included
-*   Standalone ESRGAN Upscaler for batch uploads and image splitting
-*   Experimental HarmonAI Dance Diffusion audio generator
-*   Experimental DreamFusion 3D model generator with texture & video
+*   Standalone ESRGAN Upscaler for batch uploads and image splitting, plus extras for Image Repair, Background Remover & Vectorizer
+*   Experimental HarmonAI Dance Diffusion audio generator, and many other Audio AI pipelines
+*   Experimental DreamFusion 3D model generator with texture & video, and other 3D AIs to play with
 *   Additional features added regularly...
 
 #### <a href="https://github.com/Skquark/AEIONic/raw/main/AEIONic-Diffusion-Deluxe/AEIONic-setup.exe">Download Windows</a> | <a href="https://github.com/Skquark/AEIONic/raw/main/AEIONic-Diffusion-Deluxe/aeionic-linux.sh">Download Linux/Mac Script</a> | <a href="https://AEIONic.com">Project Website</a>
