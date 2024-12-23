@@ -540,6 +540,7 @@ Flux_models = [
     {"name": "PixelWave-schnell_03", "path": "AlekseyCalvin/PixelWave_Schnell_03_by_humblemikey_Diffusers_fp8_T4bf16"},
     {"name": "Raemu Flux", "path": "Raelina/Raemu-Flux"},
     {"name": "Shuttle 3", "path": "shuttleai/shuttle-3-diffusion"},
+    {"name": "Shuttle 3.1 Aesthetic", "path": "shuttleai/shuttle-3.1-aesthetic"},
     {"name": "Shuttle 4", "path": "shuttleai/shuttle-4-diffusion"},
     {"name": "Stoiqu Afrodite", "path": "John6666/stoiqo-afrodite-fluxxl-f1dalpha-fp8-flux"},
     {"name": "NSFW-Flux v1", "path": "UnfilteredAI/NSFW-Flux-v1"},
