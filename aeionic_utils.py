@@ -622,6 +622,33 @@ Flux_LoRA_models = [
     {'name': 'Yarn Art', 'path': 'linoyts/yarn_art_Flux_LoRA', 'weight_name': 'pytorch_lora_weights.safetensors', 'prefix': ', yarn art style'},
     {'name': 'unDraw', 'path': 'AlloReview/flux-lora-undraw', 'weight_name': 'lora.safetensors', 'prefix': 'in the style of UndrawPurple'},
 ]
+Hunyuan_LoRA_models = [
+    {"name": "Fortnite v10", "path": "lividtm/Hunyuan_Loras", "weights": "fortnite_v10.safetensors", "prefix": ""},
+    {"name": "Hathaway Style", "path": "lividtm/Hunyuan_Loras", "weights": "hathaway style_epoch22.safetensors", "prefix": ""},
+    {"name": "KXSR Walking Left", "path": "lividtm/Hunyuan_Loras", "weights": "kxsr_walking_left.safetensors", "prefix": ""},
+    {"name": "Social Fashion", "path": "histin116/Hunyuan-Social-Fashion-Lora", "weights": "social_fashion_hunyuan.safetensors", "prefix": ""},
+    {"name": "Melty-3", "path": "lucataco/hunyuan-lora-melty-3-comfyui", "weights": "converted_lora.safetensors", "prefix": ""},
+    {"name": "Musubi VHS 5", "path": "lucataco/hunyuan-lora-musubi-vhs-5", "weights": "lora.safetensors", "prefix": ""},
+    {"name": "VideoLoraTest-V10", "path": "lividtm/Hunyuan_Loras", "weights": "Hunyuan-videoLoraTest-V10.safetensors", "prefix": ""},
+    {"name": "Arcane", "path": "Cseti/HunyuanVideo-LoRA-Arcane_Style", "weights": "428091-e52-csetiarcane_style_v2.safetensors", "prefix": "CSETIARCANE"},
+    {"name": "Arcane Jinx", "path": "Cseti/HunyuanVideo-LoRA-Arcane_Jinx-v1", "weights": "csetiarcane-nfjinx-v1-6000.safetensors", "prefix": "CSETIARCANE"},
+]
+CogVideoX_LoRA_models = [
+    {"name": "CineCam", "path": "hashu786/CogVideoX-LoRA-CineCam", "weights": "cinecam-lora-6000.safetensors", "prefix": ""},
+    {"name": "ExVideo-129f", "path": "ECNU-CILab/ExVideo-CogVideoX-LoRA-129f-v1", "weights": ".safetensors", "prefix": ""},
+    {"name": "Bladerunner 2049", "path": "MoonShinkiro/cogvideox-5b-fun-lora-bladerunnerv1", "weights": "checkpoint-2000.safetensors", "prefix": ""},
+    {"name": "DimensionX Orbit Left", "path": "Kijai/CogVideoX-loras", "weights": "DimensionX_orbit_left_lora_rank256_bf16.safetensors", "prefix": ""},
+    {"name": "Wallace and Gromit", "path": "Cseti/CogVideoX-LoRA-Wallace_and_Gromit", "weights": "walgro1-3000.safetensors", "prefix": "walgro1"},
+    {"name": "Fun-V1.1-2b-InP-HPS", "path": "alibaba-pai/CogVideoX-Fun-V1.1-Reward-LoRAs", "weights": "CogVideoX-Fun-V1.1-2b-InP-HPS2.1.safetensors", "prefix": ""},
+    {"name": "Fun-V1.1-5b-InP-HPS", "path": "alibaba-pai/CogVideoX-Fun-V1.1-Reward-LoRAs", "weights": "CogVideoX-Fun-V1.1-5b-InP-HPS2.1.safetensors", "prefix": ""},
+    {"name": "Fun-V1.1-2b-InP-MPS", "path": "alibaba-pai/CogVideoX-Fun-V1.1-Reward-LoRAs", "weights": "CogVideoX-Fun-V1.1-2b-InP-MPS.safetensors", "prefix": ""},
+    {"name": "Fun-V1.1-5b-InP-MPS", "path": "alibaba-pai/CogVideoX-Fun-V1.1-Reward-LoRAs", "weights": "CogVideoX-Fun-V1.1-5b-InP-MPS.safetensors", "prefix": ""},
+    {"name": "Fun-V1.5-5b-InP-HPS", "path": "alibaba-pai/CogVideoX-Fun-V1.5-Reward-LoRAs", "weights": "CogVideoX-Fun-V1.5-5b-InP-HPS.safetensors", "prefix": ""},
+    {"name": "Fun-V1.5-5b-InP-MPS", "path": "alibaba-pai/CogVideoX-Fun-V1.5-Reward-LoRAs", "weights": "CogVideoX-Fun-V1.5-5b-InP-MPS.safetensors", "prefix": ""},
+]
+LTXVideo_LoRA_models = [
+    {"name": "None yet..", "path": "Make_your_own", "weights": ".safetensors", "prefix": ""},
+]
 ip_adapter_models = [
     {'name': 'SD v1.5', 'path': 'h94/IP-Adapter', 'subfolder': 'models', 'weight_name': 'ip-adapter_sd15.bin'},
     {'name': 'Plus SD v1.5', 'path': 'h94/IP-Adapter', 'subfolder': 'models', 'weight_name': 'ip-adapter-plus_sd15.bin'},
