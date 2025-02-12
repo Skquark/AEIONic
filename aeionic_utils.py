@@ -567,6 +567,7 @@ Flux_LoRA_models = [
     {'name': 'Cinestill', 'path': 'adirik/flux-cinestill', 'weight_name': 'lora.safetensors', 'prefix': 'CNSTLL'},
     {'name': 'Dark Fantasy', 'path': 'Shakker-Labs/FLUX.1-dev-LoRA-Dark-Fantasy', 'weight_name': 'FLUX.1-dev-lora-Dark-Fantasy.safetensors', 'prefix': ''},
     {'name': 'Dark Fantasy Illustration', 'path': 'nerijs/dark-fantasy-illustration-flux', 'weight_name': 'darkfantasy_illustration_v2.safetensors', 'prefix': ''},
+    {'name': 'Doodle Toon', 'path': 'renderartist/doodletoonflux', 'weight_name': 'd00dlet00n_Flux_v2_renderartist.safetensors', 'prefix': 'd00dlet00n'},
     {'name': 'Face Realism', 'path': 'prithivMLmods/Canopus-LoRA-Flux-FaceRealism', 'weight_name': 'Canopus-LoRA-Flux-FaceRealism.safetensors', 'prefix': 'face realism'},
     {'name': 'FLUX.1 Turbo Alpha', 'path': 'alimama-creative/FLUX.1-Turbo-Alpha', 'weight_name': 'diffusion_pytorch_model.safetensors', 'prefix': ''},
     {'name': 'Fluxlabs Realism', 'path': 'VideoAditor/Flux-Lora-Realism', 'weight_name': 'flux_realism_lora.safetensors', 'prefix': ''},
