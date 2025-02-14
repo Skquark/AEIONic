@@ -12,11 +12,11 @@ if (Test-Connection -ComputerName google.com -Count 1 -Quiet) {
     exit 1
   }
 }
-cd .\venv\Scripts
+Set-Location -Path '.\venv\Scripts'
 .\Activate.ps1
-cd ..
+Set-Location -Path ..
 .\Scripts\python.exe -m pip install --upgrade pip
-.\Scripts\python.exe -m pip install --upgrade flet
+.\Scripts\python.exe -m pip install --upgrade flet[all]
 flet .\AEIONic-Diffusion-Deluxe.py
 & .\Scripts\deactivate.bat
 exit /B 1

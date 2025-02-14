@@ -12,7 +12,7 @@ powershell -Command "if (Test-Connection -ComputerName google.com -Count 1 -Quie
 cd .\venv
 call .\Scripts\activate.bat
 .\Scripts\python.exe -m pip install --upgrade --quiet pip
-.\Scripts\python.exe -m pip install --upgrade --quiet flet
+.\Scripts\python.exe -m pip install --upgrade --quiet flet[all]
 cls
 flet .\AEIONic-Diffusion-Deluxe.py
 call .\Scripts\deactivate.bat
