@@ -34,7 +34,7 @@ class SizeAwareControl(cv.Canvas):
 #from size_aware_control import SizeAwareControl
 
 """Implements a pan and zoom control for flet UI framework."""
-class PanZoom(ft.UserControl):
+class PanZoom(ft.Row):
     """Pan and zoom control for flet UI framework.
 
     This control can be used to display a large image or other content that can be larger than the
@@ -586,7 +586,7 @@ class VideoContainer(ft.Container):
         cap.release()
 
 ''' Sample alt Object format
-class Component(UserControl):
+class Component(ft.Row):
     def __init__(self):
         super().__init__()
         self.build()

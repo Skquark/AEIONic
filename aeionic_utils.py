@@ -227,6 +227,7 @@ SDXL_models = [
     {"name": "Ghost-XL", "path": "GraydientPlatformAPI/ghost-xl", "prefix": "", "variant": "fp16", "use_safetensors": True},
     {"name": "Hassaku-XL", "path": "femboysLover/Hassaku-fp16-XL", "prefix": "", "variant": "fp16"},
     {"name": "Hotshot SDXL-512", "path": "hotshotco/SDXL-512", "prefix": "", "use_safetensors": True},
+    {"name": "Illustrious XL 1.0", "path": "Liberata/illustrious-xl-v1.0", "prefix": "", "use_safetensors": True},
     {"name": "IterComp", "path": "comin/IterComp", "prefix": "", "use_safetensors": True},
     {"name": "JibMix Realistic XL", "path": "misri/jibMixRealisticXL_v60Backgrounds", "prefix": "", "variant": "fp16", "use_safetensors": True},
     {"name": "Juggernaut XL 5", "path": "stablediffusionapi/juggernaut-xl-v5", "prefix": "", "variant": "fp16", "use_safetensors": True},
