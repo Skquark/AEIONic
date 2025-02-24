@@ -133,7 +133,7 @@ class PanZoom(ft.Row):
             width=self.width,
             height=self.height
         )
-        return self.main_control
+        self.controls = [self.main_control]
 
     def reset_content_dimensions(self):
         """Resets the content dimensions.
