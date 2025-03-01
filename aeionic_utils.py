@@ -785,344 +785,404 @@ replicate_pipes = {
     'Custom':[],
 }
 
-piapi_pipes = [
-    {
-        'category': 'Image Generation',
-        'name': 'Flux.1 Dev',
-        'description': 'The best SOTA Image Generator',
-        'price': 0.015,
-        'models': ['Qubico/flux1-dev', 'Qubico/flux1-schnell', 'Qubico/flux1-dev-advanced'],
-        'task_types': ['txt2img', 'img2img', 'txt2img-lora', 'img2img-lora', 'fill-inpaint', 'fill-outpaint', 'redux-variation', 'controlnet-lora'],
-        'inputs': [
-            {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': '', 'description': 'Text to describe image you want'},
-            {'name': 'guidance_scale', 'type': 'number', 'title': 'Guidance Scale', 'description': 'Guidance scale for image generation. High guidance scales improve prompt adherence at the cost of reduced realism.', 'default': 3.5, 'min': 1.5, 'max': 5},
-            {'name': 'width', 'type': 'number', 'title': 'Width', 'description': 'Width of the generated image. Width * height cannot exceed 1048576.', 'default': 512},
-            {'name': 'height', 'type': 'number', 'title': 'Height', 'description': 'Height of the generated image. Width * height cannot exceed 1048576.', 'default': 512},
-            {'name': 'batch_size', 'type': 'number', 'title': 'Batch Size', 'description': 'Number of images to generate. Only works for schnell model. Price will be batch_size * (price for one generation).', 'default': 1, 'min': 1}
-        ]
-    },
-    {
-        'category': 'Image Generation',
-        'name': 'Midjourney',
-        'description': 'Generate 4 unique images in a 2x2 grid from a text description',
-        'price': None,  # Price not provided in the search results
-        'models': ['midjourney'],
-        'task_types': ['imagine', 'upscale'],
-        'inputs': [
-            {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': '', 'description': 'A description that enables Midjourney API to produce an image'},
-            {'name': 'aspect_ratio', 'type': 'string', 'title': 'Aspect Ratio', 'description': 'The output image\'s aspect ratio value', 'default': '1:1'},
-            {'name': 'process_mode', 'type': 'string', 'title': 'Process Mode', 'description': 'The operation process mode', 'default': 'fast'},
-            {'name': 'skip_prompt_check', 'type': 'boolean', 'title': 'Skip Prompt Check', 'description': 'Use this parameter to skip internal prompt check', 'default': False}
-        ]
-    },
-    {
-        'category': 'Video Generation',
-        'name': 'Luma Dream Machine',
-        'description': 'Text/image-to-video generation using Dream Machine model by Luma Labs',
-        'price': None,  # Price not provided in the search results
-        'models': ['luma'],
-        'task_types': ['video_generation'],
-        'inputs': [
-            {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': '', 'description': 'A description that enables the Dream Machine API to produce a video'},
-            {'name': 'key_frames', 'type': 'object', 'title': 'Key Frames', 'description': 'Frame information for image-to-video or video-extend tasks'},
-            {'name': 'model_name', 'type': 'string', 'title': 'Model Name', 'description': 'The specific model to use', 'default': 'ray-v1'},
-            {'name': 'duration', 'type': 'number', 'title': 'Duration', 'description': 'Duration of the generated video', 'default': 5, 'min': 5, 'max': 10},
-            {'name': 'aspect_ratio', 'type': 'string', 'title': 'Aspect Ratio', 'description': 'Aspect ratio of the generated video', 'default': '16:9'}
-        ]
-    },
-    {
-        'category': 'Video Generation',
-        'name': 'Kling AI',
-        'description': 'Advanced video generation model by Kuaishou',
-        'price': None,  # Price not specified in search results
-        'models': ['kling'],
-        'task_types': ['video_generation'],
-        'inputs': [
-            {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired video output'},
-            {'name': 'negative_prompt', 'type': 'string', 'title': 'Negative Prompt', 'description': 'Negative prompt for the video, can be empty'},
-            {'name': 'duration', 'type': 'number', 'title': 'Duration', 'description': 'Video length in seconds', 'default': 5, 'enum': [5, 10]},
-            {'name': 'aspect_ratio', 'type': 'string', 'title': 'Aspect Ratio', 'description': 'Output video ratio', 'enum': ['16:9', '9:16', '1:1']},
-            {'name': 'image_url', 'type': 'string', 'title': 'Image URL', 'description': 'Initial frame of the video for image-to-video generation'},
-            {'name': 'version', 'type': 'string', 'title': 'Version', 'description': 'Model version', 'default': '1.6'}
-        ]
-    },
-    {
-        'category': 'Video Generation',
-        'name': 'Kling Elements',
-        'description': 'Kling Image-to-Video generation with support for multiple elements',
-        'price': None,  # Price not specified in search results
-        'models': ['kling'],
-        'task_types': ['video_generation'],
-        'inputs': [
-            {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired video output'},
-            {'name': 'duration', 'type': 'number', 'title': 'Duration', 'description': 'Video length in seconds', 'enum': [5, 10]},
-            {'name': 'elements', 'type': 'array', 'title': 'Elements', 'description': 'Array of image elements (1-4 items)'},
-            {'name': 'aspect_ratio', 'type': 'string', 'title': 'Aspect Ratio', 'description': 'Output video ratio', 'enum': ['16:9', '9:16', '1:1']},
-            {'name': 'version', 'type': 'string', 'title': 'Version', 'description': 'Must be "1.6" for elements feature', 'default': '1.6'}
-        ]
-    },
-    {
-        'category': 'Video Generation',
-        'name': 'OmniHuman-1',
-        'description': 'High quality human video generation powered by Diffusion Transformer Based Framework',
-        'price': None,  # Price not specified in search results
-        'models': ['omnihuman'],
-        'task_types': ['video_generation'],
-        'inputs': [
-            {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired human video output'},
-            {'name': 'style', 'type': 'string', 'title': 'Style', 'description': 'Visual style for the video'},
-            {'name': 'audio', 'type': 'string', 'title': 'Audio', 'description': 'Audio input for audio-driven generation'},
-            {'name': 'video', 'type': 'string', 'title': 'Video', 'description': 'Video input for video-driven generation'}
-        ]
-    },
-    {
-        'category': 'Video Generation',
-        'name': 'Hailuo AI',
-        'description': 'Advanced video generation model by Minimax',
-        'models': ['hailuo'],
-        'task_types': ['text_to_video', 'image_to_video', 'subject_reference'],
-        'inputs': [
-            {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired video output'},
-            {'name': 'image_url', 'type': 'string', 'title': 'Image URL', 'description': 'Initial frame for image-to-video generation'},
-            {'name': 'reference_image_url', 'type': 'string', 'title': 'Reference Image URL', 'description': 'Subject reference image for S2V generation'},
-            {'name': 'duration', 'type': 'number', 'title': 'Duration', 'description': 'Video length in seconds', 'enum': [5, 10]},
-            {'name': 'aspect_ratio', 'type': 'string', 'title': 'Aspect Ratio', 'description': 'Output video ratio', 'enum': ['16:9', '9:16', '1:1']}
-        ]
-    },
-    {
-        'category': 'Video Generation',
-        'name': 'Kling AI Legacy',
-        'description': 'Legacy version of Kling AI video generation model',
-        'models': ['kling'],
-        'task_types': ['video_generation'],
-        'inputs': [
-            {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired video output'},
-            {'name': 'negative_prompt', 'type': 'string', 'title': 'Negative Prompt', 'description': 'Negative prompt for the video, can be empty'},
-            {'name': 'creativity', 'type': 'number', 'title': 'Creativity', 'description': 'A number between 0 to 1, lower is more creative', 'min': 0, 'max': 1},
-            {'name': 'duration', 'type': 'number', 'title': 'Duration', 'description': 'Video length in seconds', 'enum': [5, 10]},
-            {'name': 'aspect_ratio', 'type': 'string', 'title': 'Aspect Ratio', 'description': 'Output video ratio', 'enum': ['16:9', '9:16', '1:1']},
-            {'name': 'professional_mode', 'type': 'boolean', 'title': 'Professional Mode', 'description': 'Enable professional mode (requires paid Kling plan)', 'default': False},
-            {'name': 'image_url', 'type': 'string', 'title': 'Image URL', 'description': 'Initial frame for image-to-video generation'},
-            {'name': 'tail_image_url', 'type': 'string', 'title': 'Tail Image URL', 'description': 'End frame of the video (requires paid Kling plan)'},
-            {'name': 'camera', 'type': 'object', 'title': 'Camera Control', 'description': 'Camera control parameters for text-to-video generation'}
-        ]
-    },
-    {
-        'category': 'Video Generation',
-        'name': 'Mochi 1',
-        'description': 'Video generation model with audio capabilities',
-        'models': ['mochi-1'],
-        'task_types': ['video_generation'],
-        'inputs': [
-            {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Detailed description of the desired video content'},
-            {'name': 'num_frames', 'type': 'integer', 'title': 'Number of Frames', 'description': 'Number of frames to generate'},
-            {'name': 'fps', 'type': 'integer', 'title': 'Frames per Second', 'description': 'Frames per second for the video'},
-            {'name': 'guidance_scale', 'type': 'number', 'title': 'Guidance Scale', 'description': 'Level of adherence to the prompt'},
-            {'name': 'num_inference_steps', 'type': 'integer', 'title': 'Inference Steps', 'description': 'Number of inference steps'},
-            {'name': 'seed', 'type': 'integer', 'title': 'Seed', 'description': 'Integer for reproducibility'}
-        ]
-    },
-    {
-        'category': 'Audio Generation',
-        'name': 'F5 TTS Zeroshot',
-        'description': 'Voice cloning and text-to-speech synthesis using zero-shot learning technology',
-        'models': ['Qubico/tts'],
-        'task_types': ['zero-shot'],
-        'inputs': [
-            {'name': 'gen_text', 'type': 'string', 'title': 'Text to Generate', 'description': 'Text to be converted to speech', 'max_length': 10000},
-            {'name': 'ref_audio', 'type': 'string', 'title': 'Reference Audio', 'description': 'Reference audio URL or base64 encoded audio data'},
-            {'name': 'ref_text', 'type': 'string', 'title': 'Reference Text', 'description': 'Optional text corresponding to the reference audio'}
-        ]
-    },
-    {
-        'category': 'Audio Generation',
-        'name': 'Suno AI',
-        'description': 'Advanced audio generation model by Suno',
-        'models': ['suno-v4'],
-        'task_types': ['custom_audio_generation', 'cover_generation', 'remaster'],
-        'inputs': [
-            {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired audio output'},
-            {'name': 'tags', 'type': 'array', 'title': 'Tags', 'description': 'Music genre or style tags'},
-            {'name': 'title', 'type': 'string', 'title': 'Title', 'description': 'Title for the generated track'},
-            {'name': 'make_instrumental', 'type': 'boolean', 'title': 'Make Instrumental', 'description': 'Generate instrumental version'},
-            {'name': 'wait_audio', 'type': 'boolean', 'title': 'Wait for Audio', 'description': 'Wait for audio generation (up to 100 seconds)'}
-        ]
-    },
-    {
-        'category': 'Audio Generation',
-        'name': 'Udio AI',
-        'description': 'Music generation model by Udio',
-        'models': ['music-u'],
-        'task_types': ['generate_music'],
-        'inputs': [
-            {'name': 'gpt_description_prompt', 'type': 'string', 'title': 'Description Prompt', 'description': 'Text description for music generation'},
-            {'name': 'negative_tags', 'type': 'array', 'title': 'Negative Tags', 'description': 'Unwanted elements in the generation'},
-            {'name': 'lyrics_type', 'type': 'string', 'title': 'Lyrics Type', 'description': 'Type of lyrics generation', 'enum': ['generate', 'instrumental', 'user']},
-            {'name': 'seed', 'type': 'integer', 'title': 'Seed', 'description': 'Integer for reproducibility'},
-            {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'User-provided lyrics (for "user" lyrics_type)'}
-        ]
-    },
-    {
-        'category': 'Audio Generation',
-        'name': 'Moshi',
-        'description': 'Real-time dialogue AI with synchronized text/audio output',
-        'models': ['moshi'],
-        'task_types': ['real_time_dialogue'],
-        'inputs': [
-            {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Text input for the dialogue'},
-            {'name': 'audio_input', 'type': 'audio', 'title': 'Audio Input', 'description': 'User\'s audio input stream'},
-            {'name': 'frame_size', 'type': 'integer', 'title': 'Frame Size', 'description': 'Audio processing frame size in milliseconds', 'default': 80}
-        ]
-    },
-    {
-        'category': 'Large Language Model',
-        'name': 'DeepSeek',
-        'description': 'Advanced language model with various specialized versions',
-        'models': ['DeepSeek-R1', 'DeepSeek-V3', 'DeepSeek-LLM-7B', 'DeepSeek-LLM-67B', 'DeepSeek-Coder-V2', 'DeepSeek-VL2', 'DeepSeek-Math', 'DeepSeek-Prover', 'Janus'],
-        'task_types': ['text_generation', 'code_generation', 'mathematical_reasoning', 'theorem_proving', 'multimodal_processing'],
-        'inputs': [
-            {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Text input for the model'},
-            {'name': 'max_tokens', 'type': 'integer', 'title': 'Max Tokens', 'description': 'Maximum number of tokens to generate'},
-            {'name': 'temperature', 'type': 'number', 'title': 'Temperature', 'description': 'Controls randomness in output', 'min': 0, 'max': 1},
-            {'name': 'image', 'type': 'file', 'title': 'Image', 'description': 'Image input for multimodal tasks (DeepSeek-VL2 and Janus models)'}
-        ]
-    },
-    {
-        'category': 'Large Language Model',
-        'name': 'GPT-4o',
-        'description': 'Multimodal and multilingual AI model with sound and vision capabilities',
-        'models': ['gpt-4o', 'gpt-4o-mini'],
-        'task_types': ['text_generation', 'image_analysis', 'audio_processing', 'video_analysis'],
-        'inputs': [
-            {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Text input for the model'},
-            {'name': 'image', 'type': 'file', 'title': 'Image', 'description': 'Image input for visual tasks'},
-            {'name': 'audio', 'type': 'file', 'title': 'Audio', 'description': 'Audio input for audio processing tasks'},
-            {'name': 'video', 'type': 'file', 'title': 'Video', 'description': 'Video input for video analysis tasks'},
-            {'name': 'max_tokens', 'type': 'integer', 'title': 'Max Tokens', 'description': 'Maximum number of tokens to generate'},
-            {'name': 'temperature', 'type': 'number', 'title': 'Temperature', 'description': 'Controls randomness in output', 'min': 0, 'max': 1}
-        ]
-    },
-    {
-        'category': 'Large Language Model',
-        'name': 'Claude',
-        'description': 'Advanced AI model with strong reasoning and analysis capabilities',
-        'models': ['claude-3-5-sonnet-v2', 'claude-3-5-haiku', 'claude-3-opus'],
-        'task_types': ['text_generation', 'summarization', 'question_answering', 'code_generation', 'image_analysis'],
-        'inputs': [
-            {'name': 'messages', 'type': 'array', 'title': 'Messages', 'description': 'Array of message objects with role and content'},
-            {'name': 'max_tokens', 'type': 'integer', 'title': 'Max Tokens', 'description': 'Maximum number of tokens to generate', 'default': 1024},
-            {'name': 'temperature', 'type': 'number', 'title': 'Temperature', 'description': 'Controls randomness in output', 'min': 0, 'max': 1},
-            {'name': 'image', 'type': 'file', 'title': 'Image', 'description': 'Image input for visual analysis tasks'}
-        ]
-    },
-    {
-        'category': 'Video Generation',
-        'name': 'AI Hug',
-        'description': 'Create heartwarming hug videos from static photos using AI',
-        'models': ['ai_hug'],
-        'task_types': ['photo_to_video'],
-        'inputs': [
-            {'name': 'photo', 'type': 'file', 'title': 'Photo', 'description': 'Static photo to animate'},
-            {'name': 'hug_style', 'type': 'string', 'title': 'Hug Style', 'description': 'Type of hug animation to apply'}
-        ]
-    },
-    {
-        'category': 'Image Generation',
-        'name': 'Virtual Try-on',
-        'description': 'Visualize clothing on diverse body types and poses',
-        'models': ['virtual_tryon'],
-        'task_types': ['clothing_visualization'],
-        'inputs': [
-            {'name': 'garment_image', 'type': 'file', 'title': 'Garment Image', 'description': 'Image of the clothing item'},
-            {'name': 'model_image', 'type': 'file', 'title': 'Model Image', 'description': 'Image of the person to try on the clothing'},
-            {'name': 'garment_type', 'type': 'string', 'title': 'Garment Type', 'description': 'Type of clothing (e.g., tops, bottoms, dresses)'},
-            {'name': 'pose', 'type': 'string', 'title': 'Pose', 'description': 'Desired pose for the output image'}
-        ]
-    },
-    {
-        'category': 'Image Generation',
-        'name': 'Faceswap',
-        'description': 'Swap faces in images using AI',
-        'models': ['faceswap'],
-        'task_types': ['face_swap'],
-        'inputs': [
-            {'name': 'target_image', 'type': 'file', 'title': 'Target Image', 'description': 'Image containing the face to be replaced'},
-            {'name': 'swap_image', 'type': 'file', 'title': 'Swap Image', 'description': 'Image containing the face to be swapped in'},
-            {'name': 'result_type', 'type': 'string', 'title': 'Result Type', 'description': 'Output format (url or base64)', 'default': 'base64'}
-        ]
-    },
-    {
-        'category': '3D Generation',
-        'name': 'Trellis 3D',
-        'description': 'Generate high-quality 3D assets from text or image prompts',
-        'models': ['trellis_3d'],
-        'task_types': ['image_to_3d', 'text_to_3d'],
-        'inputs': [
-            {'name': 'input', 'type': 'file', 'title': 'Input', 'description': 'Image or text prompt for 3D generation'},
-            {'name': 'seed', 'type': 'integer', 'title': 'Seed', 'description': 'Random seed for generation'},
-            {'name': 'texture_size', 'type': 'integer', 'title': 'Texture Size', 'description': 'Size of the texture map for the 3D model'},
-            {'name': 'mesh_simplify', 'type': 'number', 'title': 'Mesh Simplify', 'description': 'Level of mesh simplification'}
-        ]
-    },
-    {
-        'category': 'Tools',
-        'name': 'File Upload API',
-        'description': 'Upload files to PiAPI for use in other tasks',
-        'models': ['file_upload'],
-        'task_types': ['file_upload'],
-        'inputs': [
-            {'name': 'file', 'type': 'file', 'title': 'File', 'description': 'File to be uploaded'},
-            {'name': 'file_name', 'type': 'string', 'title': 'File Name', 'description': 'Name for the uploaded file'}
-        ]
-    },
-    {
-        'category': 'Tools',
-        'name': 'Video Upscale',
-        'description': 'Enhance video resolution and quality',
-        'models': ['video_upscale'],
-        'task_types': ['video_enhancement'],
-        'inputs': [
-            {'name': 'video', 'type': 'file', 'title': 'Video', 'description': 'Video file to be upscaled'},
-            {'name': 'scale', 'type': 'integer', 'title': 'Scale', 'description': 'Upscaling factor', 'default': 2, 'enum': [2, 4]},
-            {'name': 'denoise_level', 'type': 'integer', 'title': 'Denoise Level', 'description': 'Level of noise reduction', 'min': 0, 'max': 3}
-        ]
-    },
-    {
-        'category': 'Tools',
-        'name': 'Remove Background',
-        'description': 'Remove background from images',
-        'models': ['remove_bg'],
-        'task_types': ['background_removal'],
-        'inputs': [
-            {'name': 'image', 'type': 'file', 'title': 'Image', 'description': 'Image to remove background from'},
-            {'name': 'model', 'type': 'string', 'title': 'Model', 'description': 'Model to use for background removal', 'default': 'u2net', 'enum': ['u2net', 'u2netp', 'u2net_human_seg']}
-        ]
-    },
-    {
-        'category': 'Tools',
-        'name': 'Segment With Prompt',
-        'description': 'Segment images based on text prompts',
-        'models': ['segment_anything'],
-        'task_types': ['image_segmentation'],
-        'inputs': [
-            {'name': 'image', 'type': 'file', 'title': 'Image', 'description': 'Image to be segmented'},
-            {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Text prompt describing the object to segment'},
-            {'name': 'model', 'type': 'string', 'title': 'Model', 'description': 'Segmentation model to use', 'default': 'vit_h', 'enum': ['vit_h', 'vit_l', 'vit_b']}
-        ]
-    },
-    {
-        'category': 'Tools',
-        'name': 'Image Upscale (Super Resolution)',
-        'description': 'Enhance image resolution and quality',
-        'models': ['real_esrgan'],
-        'task_types': ['image_enhancement'],
-        'inputs': [
-            {'name': 'image', 'type': 'file', 'title': 'Image', 'description': 'Image to be upscaled'},
-            {'name': 'scale', 'type': 'integer', 'title': 'Scale', 'description': 'Upscaling factor', 'default': 4, 'enum': [2, 3, 4]},
-            {'name': 'face_enhance', 'type': 'boolean', 'title': 'Face Enhance', 'description': 'Apply face enhancement', 'default': False}
-        ]
-    },
-]
+piapi_pipes = {
+    'Image Generation': [
+        {
+            'name': 'Flux.1 Text-to-Image',
+            'description': 'The best SOTA Image Generator',
+            'models': ['Qubico/flux1-dev', 'Qubico/flux1-schnell', 'Qubico/flux1-dev-advanced'],
+            'task_types': ['txt2img', 'txt2img-lora', 'fill-inpaint', 'fill-outpaint', 'redux-variation', 'controlnet-lora'],
+            'price': "Flux-Dev: $0.015, Flux-Schnell: $0.002",
+            'url': 'https://piapi.ai/flux-api',
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': '', 'description': 'Text to describe image you want', 'required': True},
+                {'name': 'negative_prompt', 'type': 'string', 'title': 'Negative Prompt', 'description': 'Negative prompt for the video, can be empty'},
+                {'name': 'guidance_scale', 'type': 'number', 'title': 'Guidance Scale', 'description': 'Guidance scale for image generation. High guidance scales improve prompt adherence at the cost of reduced realism.', 'default': 3.5, 'min': 1.5, 'max': 5},
+                {'name': 'denoise', 'type': 'number', 'title': 'Denoise', 'description': '', 'default': 0.7, 'min': 0, 'max': 1},
+                {'name': 'width', 'type': 'integer', 'title': 'Width', 'description': 'Width of the generated image. Width * height cannot exceed 1048576.', 'default': 1024, 'min': 256, 'max': 2048},
+                {'name': 'height', 'type': 'integer', 'title': 'Height', 'description': 'Height of the generated image. Width * height cannot exceed 1048576.', 'default': 1024, 'min': 256, 'max': 2048},
+                {'name': 'batch_size', 'type': 'integer', 'title': 'Batch Size', 'description': 'Number of images to generate. Only works for schnell model. Price will be batch_size * (price for one generation).', 'default': 1, 'min': 1, 'max': 4}
+            ]
+        },
+        {
+            'name': 'Flux.1 Image-to-Image',
+            'description': 'The best SOTA Image Generator',
+            'models': ['Qubico/flux1-dev', 'Qubico/flux1-schnell', 'Qubico/flux1-dev-advanced'],
+            'task_types': ['img2img', 'img2img-lora', 'fill-inpaint', 'fill-outpaint', 'redux-variation', 'controlnet-lora'],
+            'price': "Flux-Dev: $0.015, Flux-Schnell: $0.002",
+            'url': 'https://piapi.ai/flux-api',
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': '', 'description': 'Text to describe image you want', 'required': True},
+                {'name': 'negative_prompt', 'type': 'string', 'title': 'Negative Prompt', 'description': 'Negative prompt for the video, can be empty'},
+                {'name': 'guidance_scale', 'type': 'number', 'title': 'Guidance Scale', 'description': 'Guidance scale for image generation. High guidance scales improve prompt adherence at the cost of reduced realism.', 'default': 3.5, 'min': 1.5, 'max': 5},
+                {'name': 'denoise', 'type': 'number', 'title': 'Denoise', 'description': '', 'default': 0.7, 'min': 0, 'max': 1},
+                {'name': 'image', 'type': 'image', 'title': 'Init Image', 'description': 'Image input for visual tasks'},
+                {'name': 'batch_size', 'type': 'integer', 'title': 'Batch Size', 'description': 'Number of images to generate. Only works for schnell model. Price will be batch_size * (price for one generation).', 'default': 1, 'min': 1, 'max': 4}
+            ]
+        },
+        {
+            'name': 'Midjourney',
+            'description': 'Generate 4 unique images in a 2x2 grid from a text description',
+            'price': 'Relax Mode: $0.015, Fast Mode: $0.045, Turbo Mode: $0.10',
+            'models': ['midjourney'],
+            'task_types': ['imagine'],
+            'url': 'https://piapi.ai/midjourney-api',
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': '', 'description': 'A description that enables Midjourney API to produce an image', 'required': True},
+                {'name': 'aspect_ratio', 'type': 'string', 'title': 'Aspect Ratio', 'description': 'The output image\'s aspect ratio value', 'default': '1:1', 'enum': ['9:16', '3:4', '1:1', '4:3', '16:9', '21:9']},
+                {'name': 'process_mode', 'type': 'string', 'title': 'Process Mode', 'description': 'The operation process mode', 'default': 'fast', 'enum': ['relax', 'fast', 'turbo']},
+                {'name': 'skip_prompt_check', 'type': 'boolean', 'title': 'Skip Prompt Check', 'description': 'Use this parameter to skip internal prompt check', 'default': False}
+            ]
+        },
+        {
+            'name': 'Virtual Try-on',
+            'description': 'Visualize clothing on diverse body types and poses',
+            'models': ['kling'],
+            'task_types': ['ai_try_on'],
+            'price': "$0.07",
+            'url': 'https://piapi.ai/docs/kling-api/virtual-try-on-api',
+            'inputs': [
+                {'name': 'model_input', 'type': 'image', 'title': 'Model Image', 'description': 'Image of the person to try on the clothing', 'required': True},
+                {'name': 'dress_input', 'type': 'image', 'title': 'Garment Image', 'description': 'Image of the full-body garment. If you use this parameter, do not include the upper_input or lower_input parameters in the same request.'},
+                {'name': 'upper_input', 'type': 'image', 'title': 'Upper-Body Image', 'description': 'Image of the upper-body garment. If you use this parameter, do not include the dress_input parameters in the same request'},
+                {'name': 'lower_input', 'type': 'image', 'title': 'Lower-Body Image', 'description': 'Image of the lower-body garment. If you use this parameter, do not include the dress_input parameters in the same request'},
+                {'name': 'batch_size', 'type': 'integer', 'title': 'Batch Size', 'description': 'Number of images to generate. Only works for schnell model. Price will be batch_size * (price for one generation).', 'default': 1, 'min': 1, 'max': 4}
+            ]
+        },
+        {
+            'name': 'Faceswap',
+            'description': 'Swap faces in images using AI',
+            'models': ['Qubico/image-toolkit'],
+            'task_types': ['face_swap'],
+            'price': '$0.02',
+            'url': 'https://piapi.ai/faceswap-api',
+            'inputs': [
+                {'name': 'target_image', 'type': 'image', 'title': 'Target Image', 'description': 'Image containing the face to be replaced', 'required': True},
+                {'name': 'swap_image', 'type': 'image', 'title': 'Swap Image', 'description': 'Image containing the face to be swapped in', 'required': True},
+            ]
+        },
+    ],
+    'Video Generation': [
+        {
+            'name': 'Luma Dream Machine',
+            'description': 'Text/image-to-video generation using Dream Machine model by Luma Labs',
+            'models': ['luma'],
+            'task_types': ['video_generation', 'extend_video'],
+            'price': '$0.30',
+            'url': 'https://piapi.ai/dream-machine-api',
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': '', 'description': 'A description that enables the Dream Machine API to produce a video'},
+                {'name': 'key_frames', 'type': 'object', 'title': 'Key Frames', 'description': 'Frame information for image-to-video or video-extend tasks'},
+                {'name': 'model_name', 'type': 'string', 'title': 'Model Name', 'description': 'The specific model to use', 'enum': ['ray-v1', 'ray-v2'], 'default': 'ray-v1'},
+                {'name': 'duration', 'type': 'integer', 'title': 'Duration', 'description': 'Video length in seconds', 'default':5, 'enum': [5, 10]},
+                {'name': 'aspect_ratio', 'type': 'string', 'title': 'Aspect Ratio', 'description': 'Aspect ratio of the generated video', 'default': '16:9', 'enum': ['9:16', '3:4', '1:1', '4:3', '16:9', '21:9']}
+            ]
+        },
+        {
+            'name': 'Hunyuan Video',
+            'description': 'Text-to-video generation with standard and fast options (can do NSFW)',
+            'models': ['Qubico/hunyuan'],
+            'task_types': ['txt2video', 'fastvideo-txt2video'],
+            'price': 'txt2video: $0.09, fast-txt2video: $0.03',
+            'url': 'https://piapi.ai/docs/hunyuan-video/txt2video-api',
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Text prompt for video generation'},
+            ],
+        },
+        {
+            'name': 'Kling AI',
+            'description': 'Advanced video generation model by Kuaishou',
+            'models': ['kling'],
+            'task_types': ['video_generation', 'extend_video', 'lip_sync', 'effects'],
+            'price': 'Standard - 5s: $0.16, Standard - 10s: $0.32, Pro - 5s: $0.56, Pro - 10s: $1.12',
+            'url': 'https://piapi.ai/kling-api',
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired video output'},
+                {'name': 'negative_prompt', 'type': 'string', 'title': 'Negative Prompt', 'description': 'Negative prompt for the video, can be empty'},
+                {'name': 'mode', 'type': 'string', 'title': 'Mode', 'description': 'Output video ratio', 'enum': ['std', 'pro'], 'default': 'std'},
+                {'name': 'version', 'type': 'string', 'title': 'Version', 'description': 'Model version', 'default': '1.6', 'enum': ['1.0', '1.5', '1.6']},
+                {'name': 'duration', 'type': 'number', 'title': 'Duration', 'description': 'Video length in seconds', 'default': 5, 'enum': [5, 10]},
+                {'name': 'aspect_ratio', 'type': 'string', 'title': 'Aspect Ratio', 'description': 'Output video ratio', 'default':'16:9', 'enum': ['16:9', '9:16', '1:1'], 'default': '16:9'},
+                {'name': 'cfg_scale', 'type': 'number', 'title': 'CFG Scale', 'description': 'Controls the Guidance Scale', 'min': 0, 'max': 1, 'default': 0.5},
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired video output'},
+                {'name': 'effect', 'type': 'string', 'title': 'Effect', 'description': 'Your choice of kling effect', 'default': 'squish', 'enum': ['squish', 'expansion']},
+            ]
+        },
+        {
+            'name': 'Kling Elements',
+            'description': 'Kling Image-to-Video generation with support for multiple elements',
+            'models': ['kling'],
+            'task_types': ['video_generation'],
+            'url': 'https://piapi.ai/docs/kling-api/kling-elements',
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired video output'},
+                {'name': 'duration', 'type': 'number', 'title': 'Duration', 'description': 'Video length in seconds', 'enum': [5, 10], 'default': 5},
+                {'name': 'elements', 'type': 'array', 'title': 'Elements', 'description': 'Array of image elements (1-4 items)'}, #TODO array
+                {'name': 'aspect_ratio', 'type': 'string', 'title': 'Aspect Ratio', 'description': 'Output video ratio', 'default':'16:9', 'enum': ['16:9', '9:16', '1:1']},
+                {'name': 'version', 'type': 'string', 'title': 'Version', 'description': 'Must be "1.6" for elements feature', 'default': '1.6', 'enum': ['1.0', '1.5', '1.6']}
+            ]
+        },
+        {
+            'name': 'Kling AI Legacy',
+            'description': 'Legacy version of Kling AI video generation model',
+            'models': ['kling'],
+            'task_types': ['video_generation'],
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired video output'},
+                {'name': 'negative_prompt', 'type': 'string', 'title': 'Negative Prompt', 'description': 'Negative prompt for the video, can be empty'},
+                {'name': 'creativity', 'type': 'number', 'title': 'Creativity', 'description': 'A number between 0 to 1, lower is more creative', 'min': 0, 'max': 1, 'default':0.8},
+                {'name': 'duration', 'type': 'number', 'title': 'Duration', 'description': 'Video length in seconds', 'enum': [5, 10], 'default':5},
+                {'name': 'aspect_ratio', 'type': 'string', 'title': 'Aspect Ratio', 'description': 'Output video ratio', 'enum': ['16:9', '9:16', '1:1'], 'default':'16:9'},
+                {'name': 'professional_mode', 'type': 'boolean', 'title': 'Professional Mode', 'description': 'Enable professional mode (requires paid Kling plan)', 'default': False},
+                {'name': 'image_url', 'type': 'image', 'title': 'Image URL', 'description': 'Initial frame for image-to-video generation'},
+                {'name': 'tail_image_url', 'type': 'image', 'title': 'Tail Image URL', 'description': 'End frame of the video (requires paid Kling plan)'},
+                {'name': 'camera', 'type': 'object', 'title': 'Camera Control', 'description': 'Camera control parameters for text-to-video generation'}
+            ]
+        },
+        {
+            'name': 'Hailuo AI',
+            'description': 'Advanced video generation model by Minimax',
+            'models': ['hailuo'],
+            'task_types': ['text_to_video', 'image_to_video', 'subject_reference'],
+            'price': 'I2V & T2V: $0.20, Subject Reference: $0.30',
+            'url': 'https://piapi.ai/hailuo',
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired video output'},
+                {'name': 'image_url', 'type': 'image', 'title': 'Image URL', 'description': 'Initial frame for image-to-video generation'},
+                {'name': 'mode', 'type': 'string', 'title': 'Mode', 'description': 'Model type for video generation', 'default': 't2v-01', 'enum': ['i2v-01', 'i2v-01-live', 't2v-01', 's2v-01', 't2v-01-director']},
+                {'name': 'expand_prompt', 'type': 'boolean', 'title': 'Expand Prompt', 'description': 'Whether to expand the input prompt', 'default': False},
+            ]
+        },
+        {
+            'name': 'Skyreels Img2Video',
+            'description': 'Generate videos from static images. This model is specially trained for human centric video generation',
+            'models': ['Qubico/skyreels'],
+            'task_types': ['img2video'],
+            'price': "$0.15",
+            'url': 'https://piapi.ai/skyreels',
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': 'FPS-24, ', 'description': 'Text to describe image you want', 'required': True},
+                {'name': 'negative_prompt', 'type': 'string', 'title': 'Negative Prompt', 'description': 'Negative prompt for the video, can be empty'},
+                {'name': 'guidance_scale', 'type': 'number', 'title': 'Guidance Scale', 'description': 'Guidance scale for image generation. High guidance scales improve prompt adherence at the cost of reduced realism.', 'default': 3.5, 'min': 1, 'max': 10},
+                {'name': 'image', 'type': 'image', 'title': 'Init Image', 'description': 'Image input for visual tasks'},
+                {'name': 'aspect_ratio', 'type': 'string', 'title': 'Aspect Ratio', 'description': 'Output video ratio', 'enum': ['16:9', '9:16', '1:1'], 'default':'16:9'},
+            ]
+        },
+        {
+            'name': 'WanX',
+            'description': 'Create high-quality videos from text prompts or images. All generated videos are 480p resolution with 85 frames. WanX model is less censored',
+            'models': ['Qubico/wanx'],
+            'task_types': ['txt2video-1.3B', 'txt2video-14B', 'img2video-14B'],
+            'price': "1.3B: $0.12, 14B: $0.28",
+            'url': 'https://piapi.ai/wanx',
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': 'FPS-24, ', 'description': 'Text to describe image you want', 'required': True},
+                {'name': 'negative_prompt', 'type': 'string', 'title': 'Negative Prompt', 'description': 'Negative prompt for the video, can be empty'},
+                {'name': 'aspect_ratio', 'type': 'string', 'title': 'Aspect Ratio', 'description': 'Output video ratio', 'enum': ['16:9', '9:16'], 'default':'16:9'},
+            ]
+        },
+        {
+            'name': 'AI Hug Video',
+            'description': 'Create heartwarming hug videos from static photos using AI',
+            'models': ['Qubico/hug-video'],
+            'task_types': ['image_to_video'],
+            'url': 'https://piapi.ai/docs/ai-hug-api/create-task',
+            'inputs': [
+                {'name': 'image_url', 'type': 'image', 'title': 'Photo', 'description': 'Static photo of two people to animate hugging', 'required': True},
+            ]
+        },
+        {
+            'name': 'Faceswap Video',
+            'description': 'Swap faces in Video using AI',
+            'models': ['Qubico/video-toolkit'],
+            'task_types': ['face_swap'],
+            'url': 'https://piapi.ai/faceswap-api',
+            'price': '$0.02',
+            'inputs': [
+                {'name': 'swap_image', 'type': 'image', 'title': 'Swap Image', 'description': 'Image containing the face to be swapped in', 'required': True},
+                {'name': 'target_video', 'type': 'video', 'title': 'Target Video', 'description': 'Target MP4 video for face swapping', 'required': True},
+            ]
+        },
+        {
+            'name': 'OmniHuman-1',
+            'description': 'High quality human video generation powered by multimodality-conditioned model, generating highly realistic human animations prompted with images, audio, or videos (coming soon)',
+            'models': ['omnihuman'],
+            'task_types': ['video_generation'],
+            'url': 'https://piapi.ai/omnihuman',
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired human video output'},
+                {'name': 'style', 'type': 'string', 'title': 'Style', 'description': 'Visual style for the video'},
+                {'name': 'audio', 'type': 'audio', 'title': 'Audio', 'description': 'Audio input for audio-driven generation'},
+                {'name': 'video', 'type': 'video', 'title': 'Video', 'description': 'Video input for video-driven generation'}
+            ]
+        },
+    ],
+    'Audio Generation': [
+        {
+            'name': 'F5 TTS Zeroshot',
+            'description': 'Voice cloning and text-to-speech synthesis using zero-shot learning technology',
+            'models': ['Qubico/tts'],
+            'task_types': ['zero-shot'],
+            'price': '$0.025 per 1000 characters',
+            'inputs': [
+                {'name': 'gen_text', 'type': 'string', 'title': 'Text to Generate', 'description': 'Text to be converted to speech', 'max_length': 10000},
+                {'name': 'ref_audio', 'type': 'audio', 'title': 'Reference Audio', 'description': 'Reference audio URL or base64 encoded audio data'},
+                {'name': 'ref_text', 'type': 'string', 'title': 'Reference Text', 'description': 'Optional text corresponding to the reference audio'},
+            ]
+        },
+        {
+            'name': 'Suno AI',
+            'description': 'Advanced audio generation model by Suno',
+            'models': ['music-s'],
+            'task_types': ['generate_music', 'generate_music_custom'],
+            'url': 'https://piapi.ai/suno-api',
+            'price': '$0.04',
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired audio output'},
+                {'name': 'gpt_description_prompt', 'type': 'string', 'title': 'GPT Description Prompt', 'description': 'Use in generate_music only'},
+                {'name': 'tags', 'type': 'array', 'title': 'Tags', 'description': 'Music genre or style tags, seperate by comma'},
+                {'name': 'negative_tags', 'type': 'array', 'title': 'Negative Tags', 'description': 'Unwanted elements in the generation, seperate by comma, for example "pop,rock"'},
+                {'name': 'title', 'type': 'string', 'title': 'Title', 'description': 'Title for the generated track'},
+                {'name': 'make_instrumental', 'type': 'boolean', 'title': 'Make Instrumental', 'description': 'Generate instrumental version', 'default': False},
+                {'name': 'seed', 'type': 'integer', 'title': 'Seed', 'description': 'Integer for reproducibility', 'default': 0},
+            ]
+        },
+        {
+            'name': 'Udio AI',
+            'description': 'Music generation model by Udio',
+            'models': ['music-u'],
+            'task_types': ['generate_music', 'generate_music_custom'],
+            'url': 'https://piapi.ai/docs/music-api/create-task',
+            'price': '$0.04',
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'User-provided lyrics (for "user" lyrics_type)'},
+                {'name': 'gpt_description_prompt', 'type': 'string', 'title': 'Description Prompt', 'description': 'Text description for music generation'},
+                {'name': 'tags', 'type': 'array', 'title': 'Tags', 'description': 'Music genre or style tags, seperate by comma'},
+                {'name': 'negative_tags', 'type': 'array', 'title': 'Negative Tags', 'description': 'Unwanted elements in the generation, seperate by comma, for example "pop,rock"'},
+                {'name': 'lyrics_type', 'type': 'string', 'title': 'Lyrics Type', 'description': 'Type of lyrics generation', 'enum': ['generate', 'instrumental', 'user'], 'default':'generate'},
+                {'name': 'make_instrumental', 'type': 'boolean', 'title': 'Make Instrumental', 'description': 'Generate instrumental version', 'default': False},
+                {'name': 'seed', 'type': 'integer', 'title': 'Seed', 'description': 'Integer for reproducibility', 'default': 0},
+            ]
+        },
+        {
+            'name': 'Moshi',
+            'description': 'Real-time dialogue AI with synchronized text/audio output (coming soon)',
+            'models': ['moshi'],
+            'task_types': ['real_time_dialogue'],
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Text input for the dialogue'},
+                {'name': 'audio_input', 'type': 'audio', 'title': 'Audio Input', 'description': 'User\'s audio input stream'},
+                {'name': 'frame_size', 'type': 'integer', 'title': 'Frame Size', 'description': 'Audio processing frame size in milliseconds', 'default': 80}
+            ]
+        },
+    ],
+    'Large Language Model': [
+        {
+            'name': 'DeepSeek',
+            'description': 'Advanced language model with various specialized versions',
+            'models': ['DeepSeek-R1', 'DeepSeek-V3', 'DeepSeek-LLM-7B', 'DeepSeek-LLM-67B', 'DeepSeek-Coder-V2', 'DeepSeek-VL2', 'DeepSeek-Math', 'DeepSeek-Prover', 'Janus'],
+            'task_types': ['text_generation', 'code_generation', 'mathematical_reasoning', 'theorem_proving', 'multimodal_processing'],
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Text input for the model'},
+                {'name': 'temperature', 'type': 'number', 'title': 'Temperature', 'description': 'Controls randomness in output', 'min': 0, 'max': 1, 'default': 0.8},
+                {'name': 'max_tokens', 'type': 'integer', 'title': 'Max Tokens', 'description': 'Maximum number of tokens to generate', 'default': 1024},
+                {'name': 'image', 'type': 'image', 'title': 'Image', 'description': 'Image input for multimodal tasks (DeepSeek-VL2 and Janus models)'}
+            ]
+        },
+        {
+            'name': 'GPT-4o',
+            'description': 'Multimodal and multilingual AI model with sound and vision capabilities',
+            'models': ['gpt-4o', 'gpt-4o-mini'],
+            'task_types': ['text_generation', 'image_analysis', 'audio_processing', 'video_analysis'],
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Text input for the model'},
+                {'name': 'image', 'type': 'image', 'title': 'Image', 'description': 'Image input for visual tasks'},
+                {'name': 'audio', 'type': 'audio', 'title': 'Audio', 'description': 'Audio input for audio processing tasks'},
+                {'name': 'video', 'type': 'video', 'title': 'Video', 'description': 'Video input for video analysis tasks'},
+                {'name': 'temperature', 'type': 'number', 'title': 'Temperature', 'description': 'Controls randomness in output', 'min': 0, 'max': 1, 'default': 0.8},
+                {'name': 'max_tokens', 'type': 'integer', 'title': 'Max Tokens', 'description': 'Maximum number of tokens to generate', 'default': 1024},
+            ]
+        },
+        {
+            'name': 'Claude',
+            'description': 'Advanced AI model with strong reasoning and analysis capabilities',
+            'models': ['claude-3-5-sonnet-v2', 'claude-3-5-haiku', 'claude-3-opus'],
+            'task_types': ['text_generation', 'summarization', 'question_answering', 'code_generation', 'image_analysis'],
+            'inputs': [
+                {'name': 'messages', 'type': 'array', 'title': 'Messages', 'description': 'Array of message objects with role and content'},
+                {'name': 'temperature', 'type': 'number', 'title': 'Temperature', 'description': 'Controls randomness in output', 'min': 0, 'max': 1, 'default': 0.8},
+                {'name': 'max_tokens', 'type': 'integer', 'title': 'Max Tokens', 'description': 'Maximum number of tokens to generate', 'default': 1024},
+                {'name': 'image', 'type': 'image', 'title': 'Image', 'description': 'Image input for visual analysis tasks'},
+            ]
+        },
+    ],
+    '3D Generation': [
+        {
+            'name': 'Trellis 3D',
+            'description': 'Generate high-quality 3D assets from text or image prompts',
+            'models': ['Qubico/trellis_3d'],
+            'task_types': ['image_to_3d'],
+            'price': '$0.04',
+            'inputs': [
+                {'name': 'input', 'type': 'image', 'title': 'Input', 'description': 'Image or text prompt for 3D generation'},
+                {'name': 'ss_sampling_steps', 'type': 'integer', 'title': 'SS Sampling Steps', 'description': 'Less step means faster but less quality', 'min': 10, 'max': 50, 'default': 50},
+                {'name': 'slat_sampling_steps', 'type': 'integer', 'title': 'Slat Sampling Steps', 'description': 'Less step means faster but less quality', 'min': 10, 'max': 50, 'default': 50},
+                {'name': 'ss_guidance_strength', 'type': 'number', 'title': 'SS Guidance Scale', 'description': '', 'min': 0, 'max': 10, 'default': 7.5},
+                {'name': 'slat_guidance_strength', 'type': 'number', 'title': 'Slat Guidance Scale', 'description': '', 'min': 0, 'max': 10, 'default': 7.5},
+                {'name': 'seed', 'type': 'integer', 'title': 'Seed', 'description': 'Random seed for generation', 'default': 0},
+            ]
+        },
+    ],
+    'Tools': [
+        {
+            'name': 'Video Upscale',
+            'description': 'Enhance video resolution and quality',
+            'models': ['Qubico/video-toolkit'],
+            'task_types': ['upscale'],
+            'price': '$0.0003 per frame processed',
+            'inputs': [
+                {'name': 'video', 'type': 'video', 'title': 'Video', 'description': 'Video file to be upscaled'},
+            ]
+        },
+        {
+            'name': 'Remove Background',
+            'description': 'Remove background from images',
+            'models': ['Qubico/image-toolkit'],
+            'task_types': ['background-remove'],
+            'price': '$0.001',
+            'inputs': [
+                {'name': 'image', 'type': 'image', 'title': 'Image', 'description': 'Image to remove background from'},
+                {'name': 'model', 'type': 'string', 'title': 'Model', 'description': 'Model to use for background removal', 'default': 'u2net', 'enum': ['u2net', 'u2netp', 'u2net_human_seg']}
+            ]
+        },
+        {
+            'name': 'Segment With Prompt',
+            'description': 'Segment images based on text prompts',
+            'models': ['Qubico/image-toolkit'],
+            'task_types': ['segment'],
+            'url': 'https://piapi.ai/docs/image-editing-api/segment-with-prompt-api',
+            'inputs': [
+                {'name': 'image', 'type': 'image', 'title': 'Image', 'description': 'Image to be segmented'},
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Text prompt describing the object to segment'},
+                {'name': 'negative_prompt', 'type': 'string', 'title': 'Negative Prompt', 'description': 'Negative prompt for the video, can be empty'},
+                {'name': 'segment_factor', 'type': 'integer', 'title': 'Segment Factor', 'description': 'Pixels that expand or shrink on the edge, positive integer stands for expansion, otherwise is shrink', 'default': -15}
+            ]
+        },
+        {
+            'name': 'Image Upscale (Super Resolution)',
+            'description': 'Enhance image resolution and quality',
+            'models': ['Qubico/image-toolkit'],
+            'task_types': ['upscale'],
+            'price': '1024x1024 2x: $0.004, 2048x2048 4x: $0.064, 480x480 2x: $0.001',
+            'inputs': [
+                {'name': 'image', 'type': 'image', 'title': 'Image', 'description': 'Image to be upscaled'},
+                {'name': 'scale', 'type': 'integer', 'title': 'Scale', 'description': 'Upscaling factor', 'default': 4, 'enum': [2, 3, 4]},
+                {'name': 'face_enhance', 'type': 'boolean', 'title': 'Face Enhance', 'description': 'Apply face enhancement', 'default': False}
+            ]
+        },
+    ],
+}
+
 
 dreambooth_models = [{'name': 'disco-diffusion-style', 'token': 'a photo of ddfusion style'}, {'name': 'cat-toy', 'token': 'a photo of sks toy'}, {'name': 'herge-style', 'token': 'a photo of sks herge_style'}, {'name': 'alberto-pablo', 'token': 'a photo of sks Alberto'}, {'name': 'noggles-sd15-800-4e6', 'token': 'someone wearing sks glasses'}, {'name': 'spacecat', 'token': 'a photo of sks spacecat'}, {'name': 'pikachu', 'token': 'pikachu'}, {'name': 'kaltsit', 'token': 'kaltsit'}, {'name': 'robeez-baby-girl-water-shoes', 'token': 'a photo of sks  shoes'}, {'name': 'mertgunhan', 'token': 'mertgunhan'}, {'name': 'soydavidtapia', 'token': 'a photo of david tapia'}, {'name': 'spacecat0001', 'token': 'a photo of sks spacecat'}, {'name': 'noggles-glasses', 'token': 'a photo of a person wearing sks glasses'}, {'name': 'mario-action-figure', 'token': 'a photo of sks action figure'}, {'name': 'tattoo-design', 'token': 'line art sks tattoo design'}, {'name': 'danielveneco2', 'token': 'danielveneco'}, {'name': 'scarlet-witch-two', 'token': 'a photo of scarletwi person'}, {'name': 'angus-mcbride-style', 'token': 'angus mcbride style'}, {'name': 'mirtha-legrand', 'token': 'a photo of sks mirtha legrand'}, {'name': 'kiril', 'token': 'kiril'}, {'name': 'mr-potato-head', 'token': 'a photo of sks mr potato head'}, {'name': 'homelander', 'token': 'a photo of homelander guy'}, {'name': 'king-dog-sculpture', 'token': 'a photo of sks king dog sculpture'}, {'name': 'pedrocastillodonkey', 'token': 'a photo of PedroCastilloDonkey'}, {'name': 'xogren', 'token': 'a photo of xogren'}, {'name': 'emily-carroll-style', 'token': 'a detailed digital matte illustration by sks'}, {'name': 'sneaker', 'token': 'a photo of sks sneaker'}, {'name': 'rajj', 'token': 'a photo of sks man face'}, {'name': 'puuung', 'token': 'Puuung'}, {'name': 'partis', 'token': 'a photo of sks partis'}, {'name': 'alien-coral', 'token': 'a photo of sks alien coral'}, {'name': 'hensley-art-style', 'token': 'a painting in style of sks'}, {'name': 'tails-from-sonic', 'token': 'tails'}, {'name': 'ba-shiroko', 'token': 'a photo of sks shiroko'}, {'name': 'marina', 'token': 'marina'}, {'name': 'noggles-glasses-1200', 'token': 'a photo of a person wearing sks glasses'}, {'name': 'a-hat-in-time-girl', 'token': 'a render of sks'}, {'name': 'axolotee', 'token': 'a photo of sks Axolote'}, {'name': 'transparent-90s-console', 'token': 'a photo of sks handheld gaming console'}, {'name': 'andynsane', 'token': 'a photo of sks andynsane'}, {'name': 'tanidareal-v1', 'token': 'tanidareal'}, {'name': 'adventure-time-style', 'token': 'advtime style'}, {'name': 'sks-rv', 'token': 'a photo of sks rv'}, {'name': 'neff-voice-amp-2', 'token': 'a photo of sks neff voice amp #1'}, {'name': '27-mayonnaise-salesmen', 'token': 'a drawing of 27 from Mayonnaise SalesMen'}, {'name': 'baracus', 'token': 'b.a. baracus mr t'}, {'name': 'tahdig-rice', 'token': 'tahmricdig'}, {'name': 'angus-mcbride-style-v4', 'token': 'mcbride_style'}, {'name': 'the-witcher-game-ciri', 'token': 'a photo of a sks woman with white hair'}, {'name': 'paolo-bonolis', 'token': 'a photo of sks paolo bonolis'}, {'name': 'the-child', 'token': 'a photo of a mini australian shepherd with a slight underbite sks'}, {'name': 'gomber', 'token': 'a photo of sks toy'}, {'name': 'backpack', 'token': 'a photo of sks backpack'}, {'name': 'ricky-fort', 'token': 'a photo of sks ricky fort'}, {'name': 'mate', 'token': 'a photo of sks mate'}, {'name': 'zombie-head', 'token': 'a photo of sks zombie'}, {'name': 'leone-from-akame-ga-kill-v2', 'token': 'an anime woman character of sks'}, {'name': 'face2contra', 'token': 'a photo of sks face2contra'}, {'name': 'yakuza-0-kiryu-kazuma', 'token': 'photo of sks kiryu'}, {'name': 'gemba-cat', 'token': 'a photo of sks cat'}, {'name': 'angus-mcbride-v-3', 'token': 'angus mcbride style'}, {'name': 'california-gurls-music-video', 'token': 'caligurls'}, {'name': 'solo-levelling-art-style', 'token': 'sololeveling'}, {'name': 'blue-lightsaber-toy', 'token': 'a photo of sks toy'}, {'name': 'dmt-entity', 'token': 'a photo of sks DMT Entity'}, {'name': 'yingdream', 'token': 'a photo of an anime girl'}, {'name': 'kamenridergeats', 'token': 'a photo of kamenridergeats'}, {'name': 'quino', 'token': 'a photo of sks quino'}, {'name': 'digimon-adventure-anime', 'token': 'a landscape in sks style'}, {'name': 'evangelion-mech-unit-01', 'token': 'rendering of sks evangelion mech'}, {'name': 'elvis', 'token': 'elvis'}, {'name': 'musical-isotope', 'token': 'mi'}, {'name': 'tempa', 'token': 'a photo of sks Tempa'}, {'name': 'tempa2', 'token': 'a photo of sks Tempa'}, {'name': 'froggewut', 'token': 'a painting in the style of sks'}, {'name': 'smiling-friends-cartoon-style', 'token': 'a photo in style of sks'}, {'name': 'smario-world-map', 'token': 'a map in style of sks'}, {'name': 'edd', 'token': 'sks boy smiles'}, {'name': 'fang-yuan-002', 'token': 'an anime art of sks Fang_Yuan'}, {'name': 'langel', 'token': 'Langel'}, {'name': 'arthur-leywin', 'token': 'a photo of sks guy'}, {'name': 'kid-chameleon-character', 'token': 'kid-chameleon-character'}, {'name': 'road-to-ruin', 'token': 'starry night. sks themed level design. tiki ruins, stone statues, night sky and black silhouettes'}, {'name': 'vaporfades', 'token': 'an image in the style of sks'}, {'name': 'beard-oil-big-sur', 'token': 'a photo of sks beard oil'}, {'name': 'monero', 'token': 'a logo of sks'}, {'name': 'yagami-taichi-digimon', 'token': 'an anime boy character of sks'}, {'name': 'duregar', 'token': 'a painting of sks character'}, {'name': 'pathfinder-iconics', 'token': 'drawing in the style of sks'}, {'name': 'tyxxxszv', 'token': 'tyxxxszv'}, {'name': 'Origtron', 'token': 'Entry not found'}, {'name': 'oleg-kog', 'token': 'oleg'}, {'name': 'mau-cat', 'token': 'a photo of sks cat'}, {'name': 'justinkrane-artwork', 'token': 'art by sks JustinKrane'}, {'name': 'little-mario-jumping', 'token': 'a screenshot of tiny sks character'}, {'name': 'blue-moo-moo', 'token': 'an image of sks creature'}, {'name': 'noggles-render-1k', 'token': 'a render of sks'}, {'name': 'metahuman-rkr', 'token': 'a photo of sks rkr'}, {'name': 'taras', 'token': 'photo of sks taras'}, {'name': 'rollerbeetle', 'token': 'a photo of rollerbeetle mount'}, {'name': 'joseph-russel-ammen', 'token': 'Joseph Russel Ammen'}, {'name': 'manybearsx', 'token': 'a photo of sks drawing'}, {'name': 'mexican-concha', 'token': 'a photo of sks Mexican Concha'}, {'name': 'angus-mcbride-style-v2', 'token': 'angus mcbride style'}, {'name': 'magikarp-pokemon', 'token': 'a photo of sks pokemon'}, {'name': 'seraphm', 'token': 'serphm'}, {'name': 'estelle-sims-style', 'token': '3D render from a videogame in sks style'}, {'name': 'iman-maleki-morteza-koutzian', 'token': 'imamk'}, {'name': 'abstract-patterns-in-nature', 'token': 'abnapa'}, {'name': 'retro3d', 'token': 'trsldamrl'}, {'name': 'glitched', 'token': 'trsldamrl'}, {'name': 'dulls', 'token': '<dulls-avatar> face'}, {'name': 'nasa-space-v2-768', 'token': 'Nasa style'}, {'name': 'avocado-toy', 'token': '<avocado-toy> toy'}, {'name': 'crisimsestelle', 'token': '3d render in <cri-sims> style'}, {'name': 'sally-whitemanev', 'token': 'whitemanedb'}, {'name': 'taylorswift', 'token': 'indexaa.png'}, {'name': 'house-emblem', 'token': 'a photo of sks house-emblem'}, {'name': 'skshikakinotonoderugomi', 'token': 'sksHikakinotonoderugomi'}, {'name': 'sksbinjousoudayo', 'token': 'sksBinjouSoudayo'}, {'name': 'sksseisupusyamuzero', 'token': 'ダウンロード'}, {'name': 'sksuminaoshishimabu', 'token': 'ダウンロード'}, {'name': 'hog-rider', 'token': 'a photo of sks character'}, {'name': 'harvard-beating-yale-ii', 'token': 'a photo of sks Harvard beating Yale'}, {'name': 'hockey-player', 'token': 'a photo of sks hockey'}, {'name': 'christiano-ronaldo', 'token': 'a photo of sks'}, {'name': 'colorful-ball', 'token': 'a photo of sks ball'}, {'name': 'american-flag-cowboy-hat', 'token': 'a photo of sks hat'}, {'name': 'pranav', 'token': 'a photo of sks person'}, {'name': 'top-gun-jacket-stable-diffusion', 'token': 'a photo of sks jacket'}, {'name': 'english-bulldog-1', 'token': 'a photo of sks an english bulldog'}, {'name': 'danreynolds', 'token': 'a photo of sks dan reynolds'}, {'name': 'persona-5-shigenori-style', 'token': 'descarga'}, {'name': 'original-character-cyclps', 'token': 'cyclps'}, {'name': 'zlnsky', 'token': 'zlnsky'}, {'name': 'true-guweiz-style', 'token': 'descarga'}, {'name': 'noggles-widescreen-4e6-800', 'token': 'noggles'}, {'name': 'conf', 'token': 'AWCDJG'}, {'name': 'dtv-pkmn-monster-style', 'token': 'image'}, {'name': 'xmasvibes', 'token': 'xmasvibes'}, {'name': 'blue-lightsaber-toy', 'token': 'a photo of sks toy'}, {'name': 'adventure-time-style', 'token': 'advtime style'}, {'name': 'brime', 'token': 'prplbrime'}, {'name': 'angus-mcbride-style-v4', 'token': 'mcbride_style'}, {'name': 'oleg-kog', 'token': 'oleg'}, {'name': 'tanidareal-v1', 'token': 'tanidareal'}, {'name': 'mertgunhan', 'token': 'mertgunhan'}, {'name': 'solo-levelling-art-style', 'token': 'sololeveling'}, {'name': 'tyxxxszv', 'token': 'tyxxxszv'}, {'name': 'california-gurls-music-video', 'token': 'caligurls'}, {'name': 'mario-action-figure', 'token': 'a photo of sks action figure'}, {'name': 'tahdig-rice', 'token': 'tahmricdig'}, {'name': 'pathfinder-iconics', 'token': 'drawing in the style of sks'}, {'name': 'angus-mcbride-v-3', 'token': 'angus mcbride style'}, {'name': 'angus-mcbride-style-v2', 'token': 'angus mcbride style'}, {'name': 'angus-mcbride-style', 'token': 'angus mcbride style'}, {'name': 'danielveneco2', 'token': 'danielveneco'}, {'name': 'emily-carroll-style', 'token': 'a detailed digital matte illustration by sks'}, {'name': 'noggles-sd15-800-4e6', 'token': 'someone wearing sks glasses'}, {'name': 'alberto-pablo', 'token': 'a photo of sks Alberto'}, {'name': 'marina', 'token': 'marina'}, {'name': 'kiril', 'token': 'kiril'}, {'name': 'spacecat0001', 'token': 'a photo of sks spacecat'}, {'name': 'baracus', 'token': 'b.a. baracus mr t'}, {'name': 'gemba-cat', 'token': 'a photo of sks cat'}, {'name': 'xogren', 'token': 'a photo of xogren'}, {'name': 'musical-isotope', 'token': 'mi'}, {'name': 'spacecat', 'token': 'a photo of sks spacecat'}, {'name': 'soydavidtapia', 'token': 'a photo of david tapia'}, {'name': 'yakuza-0-kiryu-kazuma', 'token': 'photo of sks kiryu'}, {'name': 'pedrocastillodonkey', 'token': 'a photo of PedroCastilloDonkey'}, {'name': 'rajj', 'token': 'a photo of sks man face'}, {'name': 'tails-from-sonic', 'token': 'tails'}, {'name': 'pikachu', 'token': 'pikachu'}, {'name': '27-from-mayonnaise-salesmen', 'token': 'a drawing of 27 from Mayonnaise SalesMen'}, {'name': 'vaporfades', 'token': 'an image in the style of sks'}, {'name': 'sally-whitemanev', 'token': 'whitemanedb'} ]
 
