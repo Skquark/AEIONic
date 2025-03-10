@@ -655,6 +655,19 @@ CogVideoX_LoRA_models = [
 LTXVideo_LoRA_models = [
     {"name": "None yet..", "path": "Make_your_own", "weights": ".safetensors", "prefix": ""},
 ]
+Wan_LoRA_models = [
+    {"name": "Arcane-Jinx-v1", "path": "Cseti/Wan-LoRA-Arcane-Jinx-v1", "weights": "664463-csetiarcane-Nfj1nx-e15-e7-s5070-ipv.safetensors", "prefix": "csetiarcane"},
+    {"name": "Wan-1.3b-cfgdistill", "path": "spacepxl/wan-cfgdistill-loras", "weights": "wan-1.3b-cfgdistill-video-4.0-00001000_comfy.safetensors", "prefix": ""},
+    {"name": "Wan-1.3b-grayscale", "path": "tdrussell/wan-1.3b-grayscale-lora-test", "weights": "wan-greyscale-epoch20.safetensors", "prefix": ""},
+    {"name": "Chinese Vintage Cartoons", "path": "svjack/Chinese_Vintage_Cartoons_1950s_1980s_wan_2_1_1_3_B_text2video_lora", "subfolder": "zh_cartoon_outputs", "weights": "zh_cartoon_w1_3_lora.safetensors", "prefix": "In the style of Chinese Vintage Cartoons 1950s-1980s"},
+    {"name": "Pixel", "path": "svjack/Pixel_wan_2_1_1_3_B_text2video_lora", "subfolder": "pixel_outputs", "weights": "pixel_w1_3_lora.safetensors", "prefix": ""},
+    {"name": "Raiden Shogun", "path": "svjack/RAIDEN_SHOGUN_wan_2_1_1_3_B_text2video_lora", "subfolder": "RAIDEN_SHOGUN_outputs", "weights": "RAIDEN_SHOGUN_w1_3_lora.safetensors", "prefix": ""},
+    {"name": "Handjob", "path": "GSennin/wanLoras", "weights": "Handjob-wan-e38.safetensors", "prefix": ""},
+    {"name": "Titfuck", "path": "GSennin/wanLoras", "weights": "Titfuck_WAN14B_V1_Release.safetensors", "prefix": ""},
+    {"name": "wan-nsfw-e14", "path": "GSennin/wanLoras", "weights": "wan-nsfw-e14-fixed.safetensors", "prefix": ""},
+    {"name": "POV Blowjob", "path": "GSennin/wanLoras", "weights": "wan_pov_blowjob.safetensors", "prefix": ""},
+    {"name": "Tittydrop", "path": "GSennin/wanLoras", "weights": "wan_tittydrop_v1_t2v_1.3b.safetensors", "prefix": ""},
+]
 ip_adapter_models = [
     {'name': 'SD v1.5', 'path': 'h94/IP-Adapter', 'subfolder': 'models', 'weight_name': 'ip-adapter_sd15.bin'},
     {'name': 'Plus SD v1.5', 'path': 'h94/IP-Adapter', 'subfolder': 'models', 'weight_name': 'ip-adapter-plus_sd15.bin'},
