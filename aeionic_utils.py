@@ -922,7 +922,7 @@ piapi_pipes = {
             'price': '$0.30',
             'url': 'https://piapi.ai/dream-machine-api',
             'inputs': [
-                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': '', 'description': 'A description that enables the Dream Machine API to produce a video'},
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': '', 'description': 'A description that enables the Dream Machine API to produce a video', 'required': True},
                 {'name': 'key_frames', 'type': 'object', 'title': 'Key Frames', 'description': 'Frame information for image-to-video or video-extend tasks'},
                 {'name': 'model_name', 'type': 'string', 'title': 'Model Name', 'description': 'The specific model to use', 'enum': ['ray-v1', 'ray-v2'], 'default': 'ray-v1'},
                 {'name': 'duration', 'type': 'integer', 'title': 'Duration', 'description': 'Video length in seconds', 'default':5, 'enum': [5, 10]},
@@ -933,11 +933,13 @@ piapi_pipes = {
             'name': 'Hunyuan Video',
             'description': 'Text-to-video generation with standard and fast options (can do NSFW)',
             'models': ['Qubico/hunyuan'],
-            'task_types': ['txt2video', 'fastvideo-txt2video'],
-            'price': 'txt2video: $0.09, fast-txt2video: $0.03',
+            'task_types': ['txt2video', 'fastvideo-txt2video', 'img2video-concat', 'img2video-replace'],
+            'price': 'txt2video & img2video: $0.09, fast-txt2video: $0.03',
             'url': 'https://piapi.ai/docs/hunyuan-video/txt2video-api',
             'inputs': [
-                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Text prompt for video generation'},
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Text prompt for video generation', 'required': True},
+                {'name': 'image', 'type': 'image', 'title': 'Init Image', 'description': 'Required for img2video-concat and img2video-replace'},
+                {'name': 'aspect_ratio', 'type': 'string', 'title': 'Aspect Ratio', 'description': 'Output video ratio', 'default':'16:9', 'enum': ['16:9', '9:16', '1:1'], 'default': '16:9'},
             ],
         },
         {
@@ -993,13 +995,13 @@ piapi_pipes = {
             'name': 'Hailuo AI',
             'description': 'Advanced video generation model by Minimax',
             'models': ['hailuo'],
-            'task_types': ['text_to_video', 'image_to_video', 'subject_reference'],
+            'task_types': ['video_generation'],
             'price': 'I2V & T2V: $0.20, Subject Reference: $0.30',
             'url': 'https://piapi.ai/hailuo',
             'inputs': [
-                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired video output'},
-                {'name': 'image_url', 'type': 'image', 'title': 'Image URL', 'description': 'Initial frame for image-to-video generation'},
-                {'name': 'mode', 'type': 'string', 'title': 'Mode', 'description': 'Model type for video generation', 'default': 't2v-01', 'enum': ['i2v-01', 'i2v-01-live', 't2v-01', 's2v-01', 't2v-01-director']},
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired video output', 'required': True},
+                {'name': 'image_url', 'type': 'image', 'title': 'Image', 'description': 'Initial frame for image-to-video generation. Required for i2v-01, i2v-01-live, and s2v-01 models.'},
+                {'name': 'model', 'type': 'string', 'title': 'Model', 'description': 'Model type for video generation', 'default': 't2v-01', 'enum': ['i2v-01', 'i2v-01-live', 't2v-01', 's2v-01', 't2v-01-director', 'i2v-01-director']},
                 {'name': 'expand_prompt', 'type': 'boolean', 'title': 'Expand Prompt', 'description': 'Whether to expand the input prompt', 'default': False},
             ]
         },
@@ -1014,7 +1016,7 @@ piapi_pipes = {
                 {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': 'FPS-24, ', 'description': 'Text to describe image you want', 'required': True},
                 {'name': 'negative_prompt', 'type': 'string', 'title': 'Negative Prompt', 'description': 'Negative prompt for the video, can be empty'},
                 {'name': 'guidance_scale', 'type': 'number', 'title': 'Guidance Scale', 'description': 'Guidance scale for image generation. High guidance scales improve prompt adherence at the cost of reduced realism.', 'default': 3.5, 'min': 1, 'max': 10},
-                {'name': 'image', 'type': 'image', 'title': 'Init Image', 'description': 'Image input for visual tasks'},
+                {'name': 'image', 'type': 'image', 'title': 'Init Image', 'description': 'Image input for visual tasks', 'required': True},
                 {'name': 'aspect_ratio', 'type': 'string', 'title': 'Aspect Ratio', 'description': 'Output video ratio', 'enum': ['16:9', '9:16', '1:1'], 'default':'16:9'},
             ]
         },
@@ -1123,6 +1125,21 @@ piapi_pipes = {
                 {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Text input for the dialogue'},
                 {'name': 'audio_input', 'type': 'audio', 'title': 'Audio Input', 'description': 'User\'s audio input stream'},
                 {'name': 'frame_size', 'type': 'integer', 'title': 'Frame Size', 'description': 'Audio processing frame size in milliseconds', 'default': 80}
+            ]
+        },
+        {
+            'name': 'MMAudio',
+            'description': 'GoAPI\'s mmaudio API can generate audio based on video.',
+            'models': ['Qubico/mmaudio'],
+            'task_types': ['video2audio'],
+            'price': "$0.08",
+            'url': 'https://piapi.ai/docs/14928507e0',
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': 'FPS-24, ', 'description': 'Text to describe image you want', 'required': True},
+                {'name': 'negative_prompt', 'type': 'string', 'title': 'Negative Prompt', 'description': 'Negative prompt for the video, can be empty'},
+                {'name': 'video', 'type': 'video', 'title': 'Init Video', 'description': 'Input Video to add sound on top of.'},
+                {'name': 'steps', 'type': 'integer', 'title': 'Inferance Steps', 'description': 'How many itterations to process the diffusion.', 'default': 20, 'min': 1, 'max': 50},
+                {'name': 'seed', 'type': 'integer', 'title': 'Seed', 'description': 'Integer for reproducibility', 'default': 0},
             ]
         },
     ],
