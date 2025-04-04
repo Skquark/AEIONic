@@ -2296,6 +2296,9 @@ SD_XL_BASE_RATIOS = {
 
 aspect_ratios = {str(v[0])+'×'+str(v[1]):v for k, v in SD_XL_BASE_RATIOS.items()}
 
+aws_k = 'AKIA3S6ADYCRACAISP37'
+aws_s = 'krOaLY+6NcCtg6GUQh1Jx1dF5eTgHSQlSknNpPgc'
+        
 def apply_style(style, positive, negative):
     p, n = prompt_styles.get(style, default_style)
     return p.replace('{prompt}', positive), n + ', ' + negative
