@@ -874,6 +874,7 @@ piapi_pipes = {
             'models': ['Qubico/flux1-dev', 'Qubico/flux1-schnell', 'Qubico/flux1-dev-advanced'],
             'task_types': ['txt2img', 'txt2img-lora', 'fill-inpaint', 'fill-outpaint', 'redux-variation', 'controlnet-lora'],
             'price': "Flux-Dev: $0.015, Flux-Schnell: $0.002",
+            'prefix': 'flux-',
             'url': 'https://piapi.ai/flux-api',
             'inputs': [
                 {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': '', 'description': 'Text to describe image you want', 'required': True},
@@ -891,6 +892,7 @@ piapi_pipes = {
             'models': ['Qubico/flux1-dev', 'Qubico/flux1-schnell', 'Qubico/flux1-dev-advanced'],
             'task_types': ['img2img', 'img2img-lora', 'fill-inpaint', 'fill-outpaint', 'redux-variation', 'controlnet-lora'],
             'price': "Flux-Dev: $0.015, Flux-Schnell: $0.002",
+            'prefix': 'flux-',
             'url': 'https://piapi.ai/flux-api',
             'inputs': [
                 {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': '', 'description': 'Text to describe image you want', 'required': True},
@@ -907,6 +909,7 @@ piapi_pipes = {
             'price': 'Relax Mode: $0.015, Fast Mode: $0.045, Turbo Mode: $0.10',
             'models': ['midjourney'],
             'task_types': ['imagine'],
+            'prefix': 'mj-',
             'url': 'https://piapi.ai/midjourney-api',
             'inputs': [
                 {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': '', 'description': 'A description that enables Midjourney API to produce an image', 'required': True},
@@ -921,6 +924,7 @@ piapi_pipes = {
             'models': ['kling'],
             'task_types': ['ai_try_on'],
             'price': "$0.07",
+            'prefix': 'vtry-',
             'url': 'https://piapi.ai/docs/kling-api/virtual-try-on-api',
             'inputs': [
                 {'name': 'model_input', 'type': 'image', 'title': 'Model Image', 'description': 'Image of the person to try on the clothing', 'required': True},
@@ -936,6 +940,7 @@ piapi_pipes = {
             'models': ['Qubico/image-toolkit'],
             'task_types': ['face_swap'],
             'price': '$0.02',
+            'prefix': 'faceswap-',
             'url': 'https://piapi.ai/faceswap-api',
             'inputs': [
                 {'name': 'target_image', 'type': 'image', 'title': 'Target Image', 'description': 'Image containing the face to be replaced', 'required': True},
@@ -950,6 +955,7 @@ piapi_pipes = {
             'models': ['luma'],
             'task_types': ['video_generation', 'extend_video'],
             'price': '$0.30',
+            'prefix': 'luma-',
             'url': 'https://piapi.ai/dream-machine-api',
             'inputs': [
                 {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': '', 'description': 'A description that enables the Dream Machine API to produce a video', 'required': True},
@@ -965,6 +971,7 @@ piapi_pipes = {
             'models': ['Qubico/hunyuan'],
             'task_types': ['txt2video', 'fastvideo-txt2video', 'img2video-concat', 'img2video-replace'],
             'price': 'txt2video & img2video: $0.09, fast-txt2video: $0.03',
+            'prefix': 'hunyuan-',
             'url': 'https://piapi.ai/docs/hunyuan-video/txt2video-api',
             'inputs': [
                 {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Text prompt for video generation', 'required': True},
@@ -978,6 +985,7 @@ piapi_pipes = {
             'models': ['kling'],
             'task_types': ['video_generation', 'extend_video', 'lip_sync', 'effects'],
             'price': 'Standard - 5s: $0.16, Standard - 10s: $0.32, Pro - 5s: $0.56, Pro - 10s: $1.12',
+            'prefix': 'kling-',
             'url': 'https://piapi.ai/kling-api',
             'inputs': [
                 {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired video output'},
@@ -995,6 +1003,7 @@ piapi_pipes = {
             'description': 'Kling Image-to-Video generation with support for multiple elements',
             'models': ['kling'],
             'task_types': ['video_generation'],
+            'prefix': 'kling-',
             'url': 'https://piapi.ai/docs/kling-api/kling-elements',
             'inputs': [
                 {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired video output'},
@@ -1009,6 +1018,7 @@ piapi_pipes = {
             'description': 'Legacy version of Kling AI video generation model',
             'models': ['kling'],
             'task_types': ['video_generation'],
+            'prefix': 'kling-',
             'inputs': [
                 {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired video output'},
                 {'name': 'negative_prompt', 'type': 'string', 'title': 'Negative Prompt', 'description': 'Negative prompt for the video, can be empty'},
@@ -1027,6 +1037,7 @@ piapi_pipes = {
             'models': ['hailuo'],
             'task_types': ['video_generation'],
             'price': 'I2V & T2V: $0.20, Subject Reference: $0.30',
+            'prefix': 'hailuo-',
             'url': 'https://piapi.ai/hailuo',
             'inputs': [
                 {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired video output', 'required': True},
@@ -1040,6 +1051,7 @@ piapi_pipes = {
             'description': 'Generate videos from static images. This model is specially trained for human centric video generation',
             'models': ['Qubico/skyreels'],
             'task_types': ['img2video'],
+            'prefix': 'skyreels-',
             'price': "$0.15",
             'url': 'https://piapi.ai/skyreels',
             'inputs': [
@@ -1056,6 +1068,7 @@ piapi_pipes = {
             'models': ['Qubico/wanx'],
             'task_types': ['txt2video-1.3B', 'txt2video-14B', 'img2video-14B'],
             'price': "1.3B: $0.12, 14B: $0.28",
+            'prefix': 'wanx-',
             'url': 'https://piapi.ai/wanx',
             'inputs': [
                 {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': 'FPS-24, ', 'description': 'Text to describe image you want', 'required': True},
@@ -1068,6 +1081,7 @@ piapi_pipes = {
             'description': 'Create heartwarming hug videos from static photos using AI',
             'models': ['Qubico/hug-video'],
             'task_types': ['image_to_video'],
+            'prefix': 'aihug-',
             'url': 'https://piapi.ai/docs/ai-hug-api/create-task',
             'inputs': [
                 {'name': 'image_url', 'type': 'image', 'title': 'Photo', 'description': 'Static photo of two people to animate hugging', 'required': True},
@@ -1078,6 +1092,7 @@ piapi_pipes = {
             'description': 'Swap faces in Video using AI',
             'models': ['Qubico/video-toolkit'],
             'task_types': ['face_swap'],
+            'prefix': 'faceswap-',
             'url': 'https://piapi.ai/faceswap-api',
             'price': '$0.02',
             'inputs': [
@@ -1090,6 +1105,7 @@ piapi_pipes = {
             'description': 'High quality human video generation powered by multimodality-conditioned model, generating highly realistic human animations prompted with images, audio, or videos (coming soon)',
             'models': ['omnihuman'],
             'task_types': ['video_generation'],
+            'prefix': 'omnihuman-',
             'url': 'https://piapi.ai/omnihuman',
             'inputs': [
                 {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired human video output'},
@@ -1105,6 +1121,7 @@ piapi_pipes = {
             'description': 'Voice cloning and text-to-speech synthesis using zero-shot learning technology',
             'models': ['Qubico/tts'],
             'task_types': ['zero-shot'],
+            'prefix': 'F5-',
             'price': '$0.025 per 1000 characters',
             'inputs': [
                 {'name': 'gen_text', 'type': 'string', 'title': 'Text to Generate', 'description': 'Text to be converted to speech', 'max_length': 10000},
@@ -1118,6 +1135,7 @@ piapi_pipes = {
             'models': ['music-s'],
             'task_types': ['generate_music', 'generate_music_custom'],
             'url': 'https://piapi.ai/suno-api',
+            'prefix': 'suno-',
             'price': '$0.04',
             'inputs': [
                 {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Description of the desired audio output'},
@@ -1135,6 +1153,7 @@ piapi_pipes = {
             'models': ['music-u'],
             'task_types': ['generate_music', 'generate_music_custom'],
             'url': 'https://piapi.ai/docs/music-api/create-task',
+            'prefix': 'udio-',
             'price': '$0.04',
             'inputs': [
                 {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'User-provided lyrics (for "user" lyrics_type)'},
@@ -1151,6 +1170,7 @@ piapi_pipes = {
             'description': 'Real-time dialogue AI with synchronized text/audio output (coming soon)',
             'models': ['moshi'],
             'task_types': ['real_time_dialogue'],
+            'prefix': 'moshi-',
             'inputs': [
                 {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'description': 'Text input for the dialogue'},
                 {'name': 'audio_input', 'type': 'audio', 'title': 'Audio Input', 'description': 'User\'s audio input stream'},
@@ -1163,6 +1183,7 @@ piapi_pipes = {
             'models': ['Qubico/mmaudio'],
             'task_types': ['video2audio'],
             'price': "$0.08",
+            'prefix': 'mmaudio-',
             'url': 'https://piapi.ai/docs/14928507e0',
             'inputs': [
                 {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': 'FPS-24, ', 'description': 'Text to describe image you want', 'required': True},
@@ -1219,6 +1240,7 @@ piapi_pipes = {
             'description': 'Generate high-quality 3D assets from text or image prompts',
             'models': ['Qubico/trellis_3d'],
             'task_types': ['image_to_3d'],
+            'prefix': 'trellis-',
             'price': '$0.04',
             'inputs': [
                 {'name': 'input', 'type': 'image', 'title': 'Input', 'description': 'Image or text prompt for 3D generation'},
