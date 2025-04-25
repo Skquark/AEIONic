@@ -1063,16 +1063,47 @@ piapi_pipes = {
             ]
         },
         {
-            'name': 'WanX',
-            'description': 'Create high-quality videos from text prompts or images. All generated videos are 480p resolution with 85 frames. WanX model is less censored',
+            'name': 'WanX Txt2Video',
+            'description': 'Create high-quality videos from text prompts. All generated videos are 480p resolution with 85 frames. WanX model is less censored',
             'models': ['Qubico/wanx'],
-            'task_types': ['txt2video-1.3B', 'txt2video-14B', 'img2video-14B'],
+            'task_types': ['txt2video-1.3b', 'txt2video-14b'],
             'price': "1.3B: $0.12, 14B: $0.28",
             'prefix': 'wanx-',
             'url': 'https://piapi.ai/wanx',
             'inputs': [
                 {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': 'FPS-24, ', 'description': 'Text to describe image you want', 'required': True},
                 {'name': 'negative_prompt', 'type': 'string', 'title': 'Negative Prompt', 'description': 'Negative prompt for the video, can be empty'},
+                {'name': 'aspect_ratio', 'type': 'string', 'title': 'Aspect Ratio', 'description': 'Output video ratio', 'enum': ['16:9', '9:16'], 'default':'16:9'},
+            ]
+        }, #TODO: Add txt2video-14b-lora with lora_settings lora_type lora_strength in array
+        {
+            'name': 'WanX Img2Video',
+            'description': 'Create high-quality videos from images. All generated videos are 480p resolution with 85 frames. WanX model is less censored',
+            'models': ['Qubico/wanx'],
+            'task_types': ['img2video-14b'],
+            'price': "14B: $0.28",
+            'prefix': 'wanx-',
+            'url': 'https://piapi.ai/wanx',
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': 'FPS-24, ', 'description': 'Text to describe image you want', 'required': True},
+                {'name': 'negative_prompt', 'type': 'string', 'title': 'Negative Prompt', 'description': 'Negative prompt for the video, can be empty'},
+                {'name': 'image', 'type': 'image', 'title': 'Init Image', 'description': 'Required for img2video'},
+                {'name': 'aspect_ratio', 'type': 'string', 'title': 'Aspect Ratio', 'description': 'Output video ratio', 'enum': ['16:9', '9:16'], 'default':'16:9'},
+            ]
+        },
+        {
+            'name': 'WanX Img2Video Keyframe',
+            'description': 'Create high-quality videos from images. All generated videos are 480p resolution with 85 frames. WanX model is less censored',
+            'models': ['Qubico/wanx'],
+            'task_types': ['img2video-14b-keyframe'],
+            'price': "14B: $0.28",
+            'prefix': 'wanx-',
+            'url': 'https://piapi.ai/wanx',
+            'inputs': [
+                {'name': 'prompt', 'type': 'string', 'title': 'Prompt', 'default': 'FPS-24, ', 'description': 'Text to describe image you want', 'required': True},
+                {'name': 'negative_prompt', 'type': 'string', 'title': 'Negative Prompt', 'description': 'Negative prompt for the video, can be empty'},
+                {'name': 'start_image', 'type': 'image', 'title': 'Init Image', 'description': 'Required for img2video'},
+                {'name': 'end_image', 'type': 'image', 'title': 'Init Image', 'description': 'Required for img2video'},
                 {'name': 'aspect_ratio', 'type': 'string', 'title': 'Aspect Ratio', 'description': 'Output video ratio', 'enum': ['16:9', '9:16'], 'default':'16:9'},
             ]
         },

@@ -51,7 +51,7 @@ class PanZoom(ft.Row):
     content_with_padding: ft.Container or None
 
     def __init__(self, content: ft.Control, content_width: int, content_height: int,
-                 width: int = None, height: int = None, padding_color=ft.Colors.TRANSPARENT,
+                 width: int = None, height: int = None, padding_color=ft.colors.TRANSPARENT,
                  on_pan_update=None, on_scroll=None, on_click=None, max_scale=300.0, min_scale=0.1,
                  start_scale=None, expand=False, scroll_to_scale_factor=0.001):
 
