@@ -23,24 +23,24 @@ if not exist "%RCEDIT_EXE%" (
     powershell -Command "Invoke-WebRequest -Uri '%RCEDIT_URL%' -OutFile '%RCEDIT_EXE%'"
     if not exist "%RCEDIT_EXE%" (
         echo Failed to download rcedit-x64.exe.
-		pause
+		    pause
     )
     REM Downloaded rcedit-x64.exe successfully.
 )
 if not exist "%ICON_PATH%" (
-    echo Icon file not found: %ICON_PATH%
-	pause
+    echo Favicon file not found: %ICON_PATH%
+    pause
 )
 if not exist "%FLET_EXE%" (
-    echo Target EXE not found: %FLET_EXE%
-	pause
+    echo Flet EXE not found: %FLET_EXE%
+    pause
 )
 "%RCEDIT_EXE%" "%FLET_EXE%" --set-icon "%ICON_PATH%"
 if %ERRORLEVEL% EQU 0 (
     REM Icon updated for flet.exe.
 ) else (
     echo Failed to update icon.
-	pause
+    pause
 )
 cls
 flet .\AEIONic-Diffusion-Deluxe.py
