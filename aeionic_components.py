@@ -51,7 +51,7 @@ class PanZoom(ft.Row):
     content_with_padding: ft.Container or None
 
     def __init__(self, content: ft.Control, content_width: int, content_height: int,
-                 width: int = None, height: int = None, padding_color=ft.colors.TRANSPARENT,
+                 width: int = None, height: int = None, padding_color=ft.Colors.TRANSPARENT,
                  on_pan_update=None, on_scroll=None, on_click=None, max_scale=300.0, min_scale=0.1,
                  start_scale=None, expand=False, scroll_to_scale_factor=0.001):
 
@@ -427,7 +427,7 @@ class VideoContainer(ft.Container):
         self.content = self.video_tool_stack
         self.image_frames_viewer = ft.Image(expand=True, visible=False, fit=self.video_frame_fit_type)
         self.video_tool_stack.controls.append(ft.Row([self.image_frames_viewer], alignment=ft.MainAxisAlignment.CENTER))
-        self.__video_progress_bar = ft.Container(height=2, bgcolor=ft.colors.BLUE_200)
+        self.__video_progress_bar = ft.Container(height=2, bgcolor=ft.Colors.BLUE_200)
         self.video_tool_stack.controls.append(ft.Row([self.__video_progress_bar], alignment=ft.MainAxisAlignment.START))
 
         def play_video(e):
@@ -440,8 +440,8 @@ class VideoContainer(ft.Container):
                 self.play()
 
         self.__video_play_button = ft.IconButton(
-            icon=ft.icons.SMART_DISPLAY,
-            icon_color=ft.colors.WHITE54,
+            icon=ft.Icons.SMART_DISPLAY,
+            icon_color=ft.Colors.WHITE54,
             icon_size=60,
             data=0,
             style=ft.ButtonStyle(
@@ -451,8 +451,8 @@ class VideoContainer(ft.Container):
             visible=True
         )
         self.__video_pause_button = ft.IconButton(
-            icon=ft.icons.PAUSE_PRESENTATION,
-            icon_color=ft.colors.WHITE54,
+            icon=ft.Icons.PAUSE_PRESENTATION,
+            icon_color=ft.Colors.WHITE54,
             icon_size=60,
             data=0,
             style=ft.ButtonStyle(
@@ -605,6 +605,6 @@ class Main:
         page.title = "Alternative Boot experiment"
         self.add_stuff()
     def add_stuff(self):
-        self.page.add(Text("Some text", size=20), color=colors.ON_PRIMARY_CONTAINER, bgcolor=colors.PRIMARY_CONTAINER, height=45)
+        self.page.add(Text("Some text", size=20), color=Colors.ON_PRIMARY_CONTAINER, bgcolor=Colors.PRIMARY_CONTAINER, height=45)
         self.page.update()
 main = Main()'''
