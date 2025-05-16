@@ -49,6 +49,7 @@ Source: "D:\Projects\AEIONic\AEIONic-Diffusion-Deluxe\run-aeionic.bat"; DestDir:
 Source: "D:\Projects\AEIONic\AEIONic-Diffusion-Deluxe\aeionic-local.bat"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Projects\AEIONic\AEIONic-Diffusion-Deluxe\aeionic-noupdate.bat"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Projects\AEIONic\AEIONic-Diffusion-Deluxe\aeionic-linux.sh"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Projects\AEIONic\AEIONic-Diffusion-Deluxe\rcedit-x64.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\Projects\AEIONic\AEIONic-Diffusion-Deluxe\libomp140.x86_64.dll"; DestDir: "{sys}"; Flags: onlyifdoesntexist
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 

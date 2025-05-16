@@ -1,4 +1,5 @@
 @echo off
+setlocal
 cd /D "%~dp0"
 reg query "HKCU\Console" /v VirtualTerminalLevel >nul
 IF NOT %ERRORLEVEL% EQU 0 (
@@ -13,6 +14,34 @@ cd .\venv
 call .\Scripts\activate.bat
 .\Scripts\python.exe -m pip install --upgrade --quiet pip
 .\Scripts\python.exe -m pip install --upgrade --quiet flet[all]
+set "ICON_PATH=..\favicon.ico"
+set "FLET_EXE=.\Lib\site-packages\flet_desktop\app\flet\flet.exe"
+set "RCEDIT_EXE=..\rcedit-x64.exe"
+set "RCEDIT_URL=https://github.com/electron/rcedit/releases/latest/download/rcedit-x64.exe"
+if not exist "%RCEDIT_EXE%" (
+    echo rcedit-x64.exe not found. Downloading...
+    powershell -Command "Invoke-WebRequest -Uri '%RCEDIT_URL%' -OutFile '%RCEDIT_EXE%'"
+    if not exist "%RCEDIT_EXE%" (
+        echo Failed to download rcedit-x64.exe.
+		pause
+    )
+    REM Downloaded rcedit-x64.exe successfully.
+)
+if not exist "%ICON_PATH%" (
+    echo Icon file not found: %ICON_PATH%
+	pause
+)
+if not exist "%FLET_EXE%" (
+    echo Target EXE not found: %FLET_EXE%
+	pause
+)
+"%RCEDIT_EXE%" "%FLET_EXE%" --set-icon "%ICON_PATH%"
+if %ERRORLEVEL% EQU 0 (
+    REM Icon updated for flet.exe.
+) else (
+    echo Failed to update icon.
+	pause
+)
 cls
 flet .\AEIONic-Diffusion-Deluxe.py
 call .\Scripts\deactivate.bat
