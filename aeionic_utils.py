@@ -709,6 +709,7 @@ Wan_LoRA_models = [
     {'name': 'Remade-Lego', 'path': 'Remade-AI/Lego', 'weights': 'lego_35_epochs.safetensors', 'prefix': 'l3g0_5ty13 Lego animation style'},
     {'name': 'Remade-Vintage-VHS', 'path': 'Remade-AI/Vintage-VHS', 'weights': 'vhs_20_epochs.safetensors', 'prefix': 'vh5_c4m3r4 old VHS style'},
     {"name": "Arcane-Jinx-v1", "path": "Cseti/Wan-LoRA-Arcane-Jinx-v1", "weights": "664463-csetiarcane-Nfj1nx-e15-e7-s5070-ipv.safetensors", "prefix": "csetiarcane"},
+    {"name": "Kijai Causvid", "path": "Kijai/WanVideo_comfy", "weights": "Wan21_CausVid_14B_T2V_lora_rank32.safetensors", "prefix": ""},
     {"name": "Wan-1.3b-cfgdistill", "path": "spacepxl/wan-cfgdistill-loras", "weights": "wan-1.3b-cfgdistill-video-4.0-00001000_comfy.safetensors", "prefix": ""},
     {"name": "Wan-1.3b-grayscale", "path": "tdrussell/wan-1.3b-grayscale-lora-test", "weights": "wan-greyscale-epoch20.safetensors", "prefix": ""},
     {"name": "Chinese Vintage Cartoons", "path": "svjack/Chinese_Vintage_Cartoons_1950s_1980s_wan_2_1_1_3_B_text2video_lora", "subfolder": "zh_cartoon_outputs", "weights": "zh_cartoon_w1_3_lora.safetensors", "prefix": "In the style of Chinese Vintage Cartoons 1950s-1980s"},
