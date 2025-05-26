@@ -4,6 +4,7 @@ from typing import Optional, Callable
 import flet as ft
 import flet.canvas as cv
 import os, re, time, base64, threading, cv2
+from PIL import Image as PILImage
 
 class SizeAwareControl(cv.Canvas):
     def __init__(self, content: Optional[ft.Control] = None, resize_interval: int=100, on_resize: Optional[Callable]=None, **kwargs):
@@ -608,3 +609,426 @@ class Main:
         self.page.add(Text("Some text", size=20), color=Colors.ON_PRIMARY_CONTAINER, bgcolor=Colors.PRIMARY_CONTAINER, height=45)
         self.page.update()
 main = Main()'''
+
+from PIL import Image, ImageDraw, ImageColor
+import math
+
+def get_flet_paint_attributes(shape_paint: ft.Paint = None):
+    """
+    Helper function to extract and provide default Flet paint attributes.
+    Returns RGBA color tuple for PIL.
+    """
+    # Default Flet Paint properties
+    color_str = "black"
+    stroke_width = 1.0
+    paint_style = ft.PaintingStyle.FILL
+    stroke_cap = ft.StrokeCap.BUTT
+    stroke_join = ft.StrokeJoin.MITER
+
+    if shape_paint:
+        if shape_paint.color is not None:
+            color_str = shape_paint.color
+        if shape_paint.stroke_width is not None:
+            stroke_width = shape_paint.stroke_width
+        if shape_paint.style is not None:
+            paint_style = shape_paint.style
+        if shape_paint.stroke_cap is not None:
+            stroke_cap = shape_paint.stroke_cap
+        if shape_paint.stroke_join is not None:
+            stroke_join = shape_paint.stroke_join
+
+    try:
+        pil_color_rgba = ImageColor.getcolor(color_str, "RGBA")
+    except ValueError:
+        if color_str.lower() == "transparent":
+            pil_color_rgba = (0, 0, 0, 0)
+        else:
+            print(f"Warning: Could not parse color '{color_str}'. Defaulting to black.")
+            pil_color_rgba = ImageColor.getcolor("black", "RGBA")
+
+    return pil_color_rgba, float(stroke_width), paint_style, stroke_cap, stroke_join
+
+
+def canvas2img(shapes: list, width: int = 770, height: int = 640,
+               bgcolor: tuple = (255, 255, 255, 255),
+               can_save: bool = True, save_path: str = "output.png",
+               supersampling_factor: float = 1.0):
+    """
+    Converts Flet canvas shapes to a PIL Image with optional supersampling for anti-aliasing.
+
+    :param shapes: List of shape objects from a Flet canvas.
+    :param width: Width of the final output image.
+    :param height: Height of the final output image.
+    :param bgcolor: Background color of the image (R, G, B, A).
+    :param can_save: If True, saves the image.
+    :param save_path: Path to save the generated image.
+    :param supersampling_factor: Factor for supersampling (e.g., 2 for 2x SSAA).
+                                 1 means no supersampling.
+    :return: PIL Image object.
+    """
+
+    if supersampling_factor <= 1.0:
+        scale = 1.0
+        render_width = int(width)
+        render_height = int(height)
+    else:
+        scale = float(supersampling_factor)
+        render_width = int(width * scale)
+        render_height = int(height * scale)
+        if render_width == 0 or render_height == 0: # Safety for tiny target dimensions
+            scale = 1.0
+            render_width = int(width)
+            render_height = int(height)
+
+
+    img = Image.new("RGBA", (render_width, render_height), bgcolor)
+    draw = ImageDraw.Draw(img, "RGBA")
+
+    for shape in shapes:
+        pil_color, stroke_w_orig, style, cap, join = get_flet_paint_attributes(getattr(shape, 'paint', None))
+
+        # Scale stroke width for supersampling
+        scaled_stroke_w = stroke_w_orig * scale
+        if stroke_w_orig > 0:
+            # Ensure visible lines are at least 1px in the render target
+            # but allow 0 if original was 0 (e.g. for filled shapes with no outline intent)
+            pil_draw_stroke_width = max(1, int(round(scaled_stroke_w))) if scaled_stroke_w > 0 else 0
+        else:
+            pil_draw_stroke_width = 0
+
+
+        if isinstance(shape, cv.Line):
+            # Scale coordinates
+            scaled_x1, scaled_y1 = float(shape.x1) * scale, float(shape.y1) * scale
+            scaled_x2, scaled_y2 = float(shape.x2) * scale, float(shape.y2) * scale
+
+            draw.line([(scaled_x1, scaled_y1), (scaled_x2, scaled_y2)],
+                      fill=pil_color, width=pil_draw_stroke_width)
+
+            if cap == ft.StrokeCap.ROUND and scaled_stroke_w > 0:
+                r_cap = scaled_stroke_w / 2.0
+                if r_cap > 0: # Only draw caps if they have some radius
+                    draw.ellipse((scaled_x1 - r_cap, scaled_y1 - r_cap, scaled_x1 + r_cap, scaled_y1 + r_cap),
+                                 fill=pil_color, outline=None)
+                    draw.ellipse((scaled_x2 - r_cap, scaled_y2 - r_cap, scaled_x2 + r_cap, scaled_y2 + r_cap),
+                                 fill=pil_color, outline=None)
+
+        elif isinstance(shape, cv.Circle):
+            scaled_x = float(shape.x) * scale
+            scaled_y = float(shape.y) * scale
+            scaled_radius = float(shape.radius) * scale
+            
+            bbox = [scaled_x - scaled_radius, scaled_y - scaled_radius,
+                    scaled_x + scaled_radius, scaled_y + scaled_radius]
+            
+            fill_arg, outline_arg, width_arg = None, None, 0
+            if style == ft.PaintingStyle.FILL:
+                fill_arg = pil_color
+            elif style == ft.PaintingStyle.STROKE:
+                outline_arg = pil_color
+                width_arg = pil_draw_stroke_width
+            elif style == ft.PaintingStyle.STROKE_AND_FILL:
+                fill_arg = pil_color
+                outline_arg = pil_color 
+                width_arg = pil_draw_stroke_width
+            
+            draw.ellipse(bbox, fill=fill_arg, outline=outline_arg, width=width_arg)
+
+        elif isinstance(shape, cv.Arc):
+            scaled_x, scaled_y = float(shape.x) * scale, float(shape.y) * scale
+            scaled_arc_w, scaled_arc_h = float(shape.width) * scale, float(shape.height) * scale
+            
+            bbox = [scaled_x, scaled_y, scaled_x + scaled_arc_w, scaled_y + scaled_arc_h]
+            start_angle_deg = math.degrees(shape.start_angle)
+            sweep_angle_deg = math.degrees(shape.sweep_angle)
+            end_angle_deg = start_angle_deg + sweep_angle_deg
+            
+            draw.arc(bbox, start=start_angle_deg, end=end_angle_deg,
+                     fill=pil_color, width=pil_draw_stroke_width)
+            # Round caps for arcs are complex to add manually here.
+
+        elif isinstance(shape, cv.Rect):
+            scaled_x, scaled_y = float(shape.x) * scale, float(shape.y) * scale
+            scaled_rect_w, scaled_rect_h = float(shape.width) * scale, float(shape.height) * scale
+            bbox = [scaled_x, scaled_y, scaled_x + scaled_rect_w, scaled_y + scaled_rect_h]
+
+            fill_arg, outline_arg, width_arg = None, None, 0
+            if style == ft.PaintingStyle.FILL:
+                fill_arg = pil_color
+            elif style == ft.PaintingStyle.STROKE:
+                outline_arg = pil_color
+                width_arg = pil_draw_stroke_width
+            elif style == ft.PaintingStyle.STROKE_AND_FILL:
+                fill_arg = pil_color
+                outline_arg = pil_color
+                width_arg = pil_draw_stroke_width
+            
+            scaled_br_val = 0
+            if hasattr(shape, 'border_radius') and shape.border_radius:
+                br_val_orig = 0
+                if isinstance(shape.border_radius, (int, float)):
+                    br_val_orig = float(shape.border_radius)
+                elif isinstance(shape.border_radius, ft.BorderRadius):
+                    br_val_orig = float(shape.border_radius.top_left) # Simplification
+                scaled_br_val = br_val_orig * scale
+
+            if scaled_br_val > 0:
+                draw.rounded_rectangle(bbox, radius=scaled_br_val, fill=fill_arg,
+                                       outline=outline_arg, width=width_arg)
+            else:
+                draw.rectangle(bbox, fill=fill_arg, outline=outline_arg, width=width_arg)
+        
+        elif isinstance(shape, cv.Path):
+            pil_join_type = "curve" if join == ft.StrokeJoin.ROUND else None
+            
+            current_subpath_points = []
+            path_start_point_for_close = None
+
+            for element in shape.elements:
+                if isinstance(element, cv.Path.MoveTo):
+                    if len(current_subpath_points) >= 2:
+                        draw.line(current_subpath_points, fill=pil_color, 
+                                  width=pil_draw_stroke_width, joint=pil_join_type)
+                        if cap == ft.StrokeCap.ROUND and scaled_stroke_w > 0: # cap for open path
+                            r_cap = scaled_stroke_w / 2.0
+                            if r_cap > 0:
+                                ps_cap, pe_cap = current_subpath_points[0], current_subpath_points[-1]
+                                draw.ellipse((ps_cap[0]-r_cap, ps_cap[1]-r_cap, ps_cap[0]+r_cap, ps_cap[1]+r_cap), fill=pil_color)
+                                draw.ellipse((pe_cap[0]-r_cap, pe_cap[1]-r_cap, pe_cap[0]+r_cap, pe_cap[1]+r_cap), fill=pil_color)
+                    
+                    scaled_ex, scaled_ey = float(element.x) * scale, float(element.y) * scale
+                    current_subpath_points = [(scaled_ex, scaled_ey)]
+                    path_start_point_for_close = current_subpath_points[0]
+                
+                elif isinstance(element, cv.Path.LineTo):
+                    scaled_ex, scaled_ey = float(element.x) * scale, float(element.y) * scale
+                    current_subpath_points.append((scaled_ex, scaled_ey))
+                
+                elif isinstance(element, cv.Path.Close):
+                    if path_start_point_for_close and current_subpath_points:
+                        if current_subpath_points[-1] != path_start_point_for_close:
+                             current_subpath_points.append(path_start_point_for_close)
+                    if len(current_subpath_points) >= 2:
+                        draw.line(current_subpath_points, fill=pil_color, 
+                                  width=pil_draw_stroke_width, joint=pil_join_type)
+                    current_subpath_points = []
+                    path_start_point_for_close = None
+
+                elif isinstance(element, cv.Path.QuadraticTo):
+                    # Scaled control point, scaled end point
+                    # scaled_c1x, scaled_c1y = float(element.x1) * scale, float(element.y1) * scale
+                    scaled_ex, scaled_ey = float(element.x2) * scale, float(element.y2) * scale
+                    current_subpath_points.append((scaled_ex, scaled_ey)) # Approximation
+                elif isinstance(element, cv.Path.CubicTo):
+                    # Scaled control points, scaled end point
+                    # scaled_c1x, scaled_c1y = float(element.x1) * scale, float(element.y1) * scale
+                    # scaled_c2x, scaled_c2y = float(element.x2) * scale, float(element.y2) * scale
+                    scaled_ex, scaled_ey = float(element.x3) * scale, float(element.y3) * scale
+                    current_subpath_points.append((scaled_ex, scaled_ey)) # Approximation
+            
+            if len(current_subpath_points) >= 2:
+                draw.line(current_subpath_points, fill=pil_color, 
+                          width=pil_draw_stroke_width, joint=pil_join_type)
+                if cap == ft.StrokeCap.ROUND and scaled_stroke_w > 0: # cap for final open path
+                    r_cap = scaled_stroke_w / 2.0
+                    if r_cap > 0:
+                        ps_cap, pe_cap = current_subpath_points[0], current_subpath_points[-1]
+                        draw.ellipse((ps_cap[0]-r_cap, ps_cap[1]-r_cap, ps_cap[0]+r_cap, ps_cap[1]+r_cap), fill=pil_color)
+                        draw.ellipse((pe_cap[0]-r_cap, pe_cap[1]-r_cap, pe_cap[0]+r_cap, pe_cap[1]+r_cap), fill=pil_color)
+
+    # Downscale if supersampling was used
+    if scale > 1.0 and width > 0 and height > 0:
+        try:
+            # For Pillow >= 8.0.0
+            resample_filter = Image.Resampling.LANCZOS
+        except AttributeError:
+            # For older Pillow versions
+            resample_filter = Image.LANCZOS
+        img = img.resize((int(width), int(height)), resample_filter)
+
+    if can_save:
+        img.save(save_path, "PNG")
+    return img
+
+
+class _DrawState: # Helper for MaskPainterDialog
+    x: float; y: float
+    def __init__(self): self.x = 0; self.y = 0
+
+class MaskPainterDialog:
+    def __init__(self, page: ft.Page, 
+                 init_image_path: str, 
+                 on_save_callback, # Function to call with mask_path on save
+                 default_stroke_width: int = 40,
+                 mask_suffix: str = "-mask",
+                 supersampling: float = 2.0):
+        
+        self.page = page
+        self.init_image_path = init_image_path
+        self.on_save_callback = on_save_callback
+        self.default_stroke_width = default_stroke_width
+        self.current_stroke_width = default_stroke_width
+        self.mask_suffix = mask_suffix
+        self.supersampling = supersampling
+
+        self._draw_state = _DrawState()
+        self._image_pil = None
+        self.image_width: int = 400
+        self.image_height: int = 485
+
+        # --- Dialog Controls ---
+        self.bg_img = ft.Image(
+            fit=ft.ImageFit.CONTAIN,
+            width=self.image_width,
+            height=self.image_height
+        )
+        self.canvas = cv.Canvas(
+            content=ft.GestureDetector(
+                on_pan_start=self._pan_start,
+                on_pan_update=self._pan_update,
+                drag_interval=10,
+            ),
+        )
+        self.canvas_container = ft.Container(
+            ft.Stack([self.bg_img, self.canvas]),
+            border=ft.border.all(1, ft.Colors.OUTLINE),
+            width=self.image_width,
+            height=self.image_height,
+            alignment=ft.alignment.center,
+        )
+        self.stroke_slider = ft.Slider(
+            min=1, max=150, divisions=149, round=0, expand=True,
+            label="{value}px", value=self.default_stroke_width,
+            on_change=self._change_stroke
+        )
+        self.clear_button = ft.IconButton(
+            icon=ft.Icons.CLEAR, tooltip="Clear Mask", on_click=self._clear_canvas
+        )
+        
+        self.dialog = ft.AlertDialog(
+            modal=True,
+            title=ft.Text("Draw Mask"),
+            content=ft.Column(
+                [
+                    self.canvas_container,
+                    ft.Row([self.clear_button, self.stroke_slider]),
+                ],
+                tight=True, # Make column fit content
+                scroll=ft.ScrollMode.ADAPTIVE # If content might overflow
+            ),
+            actions=[
+                ft.TextButton("Cancel", on_click=self._close_dialog),
+                ft.ElevatedButton("Save Mask", on_click=self._save_mask_action),
+            ],
+            actions_alignment=ft.MainAxisAlignment.END,
+            #on_dismiss=lambda e: print("Mask dialog dismissed"), # Optional
+        )
+
+    def _load_image_and_setup(self):
+        try:
+            if not self.init_image_path or not os.path.exists(self.init_image_path):
+                self.page.show_snack_bar(ft.SnackBar(ft.Text(f"Error: Initial image not found at {self.init_image_path}"), open=True))
+                self.bg_img.src = None # Or a placeholder image data_url
+                self.image_width, self.image_height = 400, 300 # Default
+            else:
+                self._image_pil = PILImage.open(self.init_image_path)
+                self.image_width, self.image_height = self._image_pil.size
+                self.bg_img.src = self.init_image_path
+            
+            self.bg_img.width = self.image_width
+            self.bg_img.height = self.image_height
+            self.canvas_container.width = self.image_width
+            self.canvas_container.height = self.image_height
+            self.canvas.shapes.clear()
+            #self.bg_img.update()
+            #self.canvas_container.update()
+            #self.canvas.update()
+
+        except Exception as e:
+            print(f"Error loading image for mask dialog: {e}")
+            self.bg_img.src = None 
+            self.image_width, self.image_height = 400, 300
+            #self.bg_img.update()
+            #self.canvas_container.update()
+    
+    def _pan_start(self, e: ft.DragStartEvent):
+        self._draw_state.x = e.local_x
+        self._draw_state.y = e.local_y
+
+    def _pan_update(self, e: ft.DragUpdateEvent):
+        paint = ft.Paint(
+            stroke_width=self.current_stroke_width,
+            color=ft.Colors.BLACK,
+            stroke_join=ft.StrokeJoin.ROUND,
+            stroke_cap=ft.StrokeCap.ROUND,
+            style=ft.PaintingStyle.STROKE # Important for lines
+        )
+        self.canvas.shapes.append(
+            cv.Line(self._draw_state.x, self._draw_state.y, e.local_x, e.local_y, paint=paint)
+        )
+        self.canvas.update()
+        self._draw_state.x = e.local_x
+        self._draw_state.y = e.local_y
+
+    def _clear_canvas(self, e=None): # e can be None if called internally
+        self.canvas.shapes.clear()
+        self.canvas.update()
+
+    def _change_stroke(self, e: ft.ControlEvent):
+        self.current_stroke_width = int(e.control.value)
+
+    def _generate_mask_path(self) -> str:
+        base, ext = os.path.splitext(os.path.basename(self.init_image_path))
+        mask_filename = f"{base}{self.mask_suffix}.png"        
+        save_dir = os.path.dirname(self.init_image_path)
+        if not save_dir: # If init_image_path was just a filename
+            save_dir = getattr(self.page, 'uploads_dir', 'uploads') 
+            os.makedirs(save_dir, exist_ok=True)
+
+        # Simple available_file logic (add numbering if exists)
+        full_mask_path = os.path.join(save_dir, mask_filename)
+        count = 1
+        while os.path.exists(full_mask_path):
+            mask_filename = f"{base}{self.mask_suffix}-{count}.png"
+            full_mask_path = os.path.join(save_dir, mask_filename)
+            count += 1
+        return full_mask_path
+
+    def _save_mask_action(self, e: ft.ControlEvent):
+        if not self.canvas.shapes:
+            self.page.show_snack_bar(ft.SnackBar(ft.Text("Nothing to save, mask is empty."), open=True))
+            return
+
+        mask_file_path = self._generate_mask_path()
+
+        try:
+            #from aeionic_components import canvas2img # Or wherever it is
+            canvas2img(
+                self.canvas.shapes,
+                width=self.image_width,
+                height=self.image_height,
+                bgcolor=(255, 255, 255, 255), #(0, 0, 0, 0),  # Transparent background for the mask strokes
+                can_save=True,
+                save_path=mask_file_path,
+                supersampling_factor=self.supersampling
+            )
+            
+            if self.on_save_callback:
+                self.on_save_callback(mask_file_path)
+            self._close_dialog()
+
+        except ImportError:
+            print("ERROR: canvas2img function not found. Please ensure it's correctly imported.")
+        except Exception as ex:
+            self.page.show_snack_bar(ft.SnackBar(ft.Text(f"Error saving mask: {ex}"), open=True))
+
+    def _close_dialog(self, e=None): # e can be None if called internally
+        self.dialog.open = False
+        self.page.update()
+
+    def open(self):
+        self._load_image_and_setup() # Load image and set dimensions
+        self.page.overlay.append(self.dialog)
+        self.dialog.open = True
+        self.page.update()
+
